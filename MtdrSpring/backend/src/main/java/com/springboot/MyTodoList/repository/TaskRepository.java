@@ -18,4 +18,6 @@ public interface TaskRepository extends JpaRepository<Task, Integer> {
 
     @Query("SELECT COUNT(t) FROM Task t WHERE t.oracleUserId = :oracleUserId AND t.state = 'Terminada'")
     int countByOracleUserIdAndStateTerminada(@Param("oracleUserId") int oracleUserId);
+
+    List<Task> findByOracleUserIdAndSprintId(int oracleUserId, int sprintId);
 }

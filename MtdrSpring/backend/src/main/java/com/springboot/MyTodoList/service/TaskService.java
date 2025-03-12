@@ -32,6 +32,10 @@ public class TaskService {
 
         return (completedTasks * 100) / totalTasks;
     }
+
+    public List<Task> getTasksByOracleUserIdAndSprintId(int oracleUserId, int sprintId) {
+        return taskRepository.findByOracleUserIdAndSprintId(oracleUserId, sprintId);
+    }
 }
 
 

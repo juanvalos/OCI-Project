@@ -37,4 +37,12 @@ public class TaskController {
     public int getCompletionPercentage(@RequestParam int oracleUserId) {
         return taskService.calculateCompletionPercentage(oracleUserId);
     }
+
+    @GetMapping(value = "/tasksUserSprint")
+    public ResponseEntity<List<Task>> getTasksByOracleUserIdAndSprintId(
+            @RequestParam int oracleUserId,
+            @RequestParam int sprintId) {
+        List<Task> tasks = taskService.getTasksByOracleUserIdAndSprintId(oracleUserId, sprintId);
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
+    }
 }
