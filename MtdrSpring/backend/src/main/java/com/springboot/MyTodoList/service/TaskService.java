@@ -21,6 +21,17 @@ public class TaskService {
     public Task saveTask(Task task) {
         return taskRepository.save(task);
     }
+
+    public int calculateCompletionPercentage(int oracleUserId) {
+        int totalTasks = taskRepository.countByOracleUserId(oracleUserId);
+        int completedTasks = taskRepository.countByOracleUserIdAndStateTerminada(oracleUserId);
+
+        if (totalTasks == 0) {
+            return 0;
+        }
+
+        return (completedTasks * 100) / totalTasks;
+    }
 }
 
 
