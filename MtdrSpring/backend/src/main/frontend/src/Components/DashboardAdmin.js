@@ -2,16 +2,19 @@ import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../Contexts/UserContext";
 import { SprintContext } from "../Contexts/SprintContext";
 import { useNavigate } from "react-router-dom";
-import "../Assets/DashboardUser.css";
-import { FaUserCircle } from "react-icons/fa"; 
-import { BsClipboardCheck } from "react-icons/bs"; 
-import { FiLogOut } from "react-icons/fi"; // Icono de cerrar sesión
+import "../Assets/DashboardAdmin.css";
+import CreateSprint from "./CreateSprint";
+import { FaUserCircle } from "react-icons/fa";
+import { BsClipboardCheck } from "react-icons/bs";
+import { FiLogOut } from "react-icons/fi";
+import { FaChartBar } from "react-icons/fa";
 
 const DashboardUser = () => {
   const [user, setUser] = useState(null);
   const [sprints, setSprints] = useState([]);
+  const [showCreateSprint, setShowCreateSprint] = useState(false);
   const navigate = useNavigate();
-  const {setSprintId } = useContext(SprintContext);
+  const { setSprintId } = useContext(SprintContext);
   const { userId, setUserId } = useContext(UserContext);
 
   useEffect(() => {
@@ -34,22 +37,22 @@ const DashboardUser = () => {
   const handleLogout = () => {
     setUserId(0);
     setSprintId(0);
-    navigate("/"); // Redirige al home
+    navigate("/");
   };
 
   const handleSprintClick = (sprintId) => {
     setSprintId(sprintId);
-    navigate(`/sprintDetails`);
+    navigate(`/sprintsAdmin`);
   };
 
   return (
     <div className="dashboard-container">
       <div className="dashboard-header">
-        <h1 className="dashboard-title">📌 Orace User Dashboard</h1>
-          <button className="logout-button" onClick={handleLogout}>
-            <FiLogOut className="logout-icon" />
-              Cerrar sesión
-          </button>
+        <h1 className="dashboard-title">📌 Oracle Manager Dashboard</h1>
+        <button className="logout-button" onClick={handleLogout}>
+          <FiLogOut className="logout-icon" />
+          Cerrar sesión
+        </button>
       </div>
 
       <div className="dashboard-content">
@@ -70,9 +73,9 @@ const DashboardUser = () => {
           <h2 className="sprints-title">📅 Sprints Activos</h2>
           <div className="sprints-container">
             {sprints.map((sprint) => (
-              <div 
-                key={sprint.id} 
-                className="sprint-card" 
+              <div
+                key={sprint.id}
+                className="sprint-card"
                 onClick={() => handleSprintClick(sprint.id)}
               >
                 <BsClipboardCheck className="sprint-icon" />
@@ -81,8 +84,23 @@ const DashboardUser = () => {
               </div>
             ))}
           </div>
+          <button className="create-sprint-button" onClick={() => setShowCreateSprint(true)}>
+            + Crear Sprint
+          </button>
+        </div>
+
+        <div className="productivity-section">
+          <h2 className="productivity-title">📊 Productividad</h2>
+          <button className="productivity-button" onClick={() => navigate("/globalProductivity")}>
+            <FaChartBar className="icon" /> Productividad Global
+          </button>
+          <button className="productivity-button" onClick={() => navigate("/sprintProductivity")}>
+            <FaChartBar className="icon" /> Productividad por Sprint
+          </button>
         </div>
       </div>
+
+      {showCreateSprint && <CreateSprint onClose={() => setShowCreateSprint(false)} onCreate={() => {}} />}
     </div>
   );
 };

@@ -26,4 +26,8 @@ public class SprintService {
     public Optional<Sprint> findSprintById(int id) {
         return sprintRepository.findById(id);
     }
+
+    public void deleteSprintById(int id) {
+        sprintRepository.deleteById(id);
+    }
 }

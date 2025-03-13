@@ -48,7 +48,7 @@ html, body {
 .dashboard-content {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     width: none;
     height: 100%;
     padding: 0 40px;
@@ -83,6 +83,7 @@ html, body {
     text-align: left;
     justify-content: center;
     align-items: center; 
+    max-width: 80vh;
 }
 
 /* Contenedor de Sprints */
