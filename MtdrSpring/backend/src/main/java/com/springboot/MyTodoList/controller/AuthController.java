@@ -2,6 +2,8 @@ package com.springboot.MyTodoList.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +24,21 @@ public class AuthController {
             return ResponseEntity.ok(authenticatedUser);
         } else {
             return ResponseEntity.status(401).build();
+        }
+    }
+
+    @GetMapping(value = "/profile/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable int id) {
+        User user = authService.getUserById(id);
+        if (user != null) {
+            User responseUser = new User();
+            responseUser.setName(user.getName());
+            responseUser.setMail(user.getMail());
+            responseUser.setRole(user.getRole());
+            responseUser.setModality(user.getModality());
+            return ResponseEntity.ok(responseUser);
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 }

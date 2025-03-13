@@ -1,6 +1,7 @@
 package com.springboot.MyTodoList.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,10 @@ public class TaskService {
 
     public List<Task> getTasksByOracleUserId(int oracleUserId) {
         return taskRepository.findByOracleUserId (oracleUserId); // Ajusta el método llamado
+    }
+
+    public List<Task> getTasksBySprintId(int sprintId) {
+        return taskRepository.findBySprintId(sprintId);
     }
 
     public Task saveTask(Task task) {
@@ -36,6 +41,22 @@ public class TaskService {
     public List<Task> getTasksByOracleUserIdAndSprintId(int oracleUserId, int sprintId) {
         return taskRepository.findByOracleUserIdAndSprintId(oracleUserId, sprintId);
     }
+
+    public Task updateTaskState(int id, String newState) {
+        Optional<Task> taskOptional = taskRepository.findById(id);
+        if (taskOptional.isPresent()) {
+            Task task = taskOptional.get();
+            task.setState(newState);
+            return taskRepository.save(task);
+        } else {
+            return null;
+        }
+    }
+
+    public Optional<Task> getTaskById(int id) {
+        return taskRepository.findById(id);
+    }
+
 }
 
 

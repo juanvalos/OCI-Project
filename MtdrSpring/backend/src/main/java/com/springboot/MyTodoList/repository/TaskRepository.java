@@ -13,6 +13,8 @@ import com.springboot.MyTodoList.model.Task;
 public interface TaskRepository extends JpaRepository<Task, Integer> {
     List<Task> findByOracleUserId(int oracleUserId);
 
+    List<Task> findBySprintId(int sprintId);
+
     @Query("SELECT COUNT(t) FROM Task t WHERE t.oracleUserId = :oracleUserId")
     int countByOracleUserId(@Param("oracleUserId") int oracleUserId);
 

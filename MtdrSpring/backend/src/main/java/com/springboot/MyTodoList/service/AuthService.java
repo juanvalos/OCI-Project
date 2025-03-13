@@ -19,4 +19,8 @@ public class AuthService {
         }
         return null;
     }
+
+    public User getUserById(int id) {
+        return userRepository.findById(id).orElse(null);
+    }
 }

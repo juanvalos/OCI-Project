@@ -1,6 +1,7 @@
 package com.springboot.MyTodoList.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,5 +21,9 @@ public class SprintService {
 
     public List<Sprint> findAllSprints() {
         return sprintRepository.findAll();
+    }
+
+    public Optional<Sprint> findSprintById(int id) {
+        return sprintRepository.findById(id);
     }
 }
