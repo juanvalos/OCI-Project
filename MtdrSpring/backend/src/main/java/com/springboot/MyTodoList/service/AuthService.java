@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 import com.springboot.MyTodoList.model.User;
 import com.springboot.MyTodoList.repository.UserRepository;
 
+import java.util.List;
+
+
 @Service
 public class AuthService {
 
@@ -22,5 +25,9 @@ public class AuthService {
 
     public User getUserById(int id) {
         return userRepository.findById(id).orElse(null);
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 }

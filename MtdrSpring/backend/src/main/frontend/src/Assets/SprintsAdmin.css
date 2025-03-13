@@ -43,7 +43,7 @@ html, body {
     flex-direction: row;
     justify-content: space-between;
     padding: 40px;
-    height: 80vh;
+    height: 50vh;
     gap: 20px;
 }
 
