@@ -19,6 +19,7 @@ const CreateSprint = ({ onClose, onCreate }) => {
         onCreate(createdSprint);
         onClose();
         alert("Sprint creado con éxito.");
+        navigate(-1); // Regresa a la página anterior
       } else {
         alert("Error al crear el Sprint.");
       }

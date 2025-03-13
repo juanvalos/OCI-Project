@@ -1,18 +1,25 @@
 import React, { useContext, useEffect, useState } from "react";
 import { SprintContext } from "../Contexts/SprintContext";
 import { UserContext } from "../Contexts/UserContext";
+import { TaskContext } from "../Contexts/TaskContext";
 import { useNavigate } from "react-router-dom";
 import "../Assets/SprintsAdmin.css";
 import { BsClipboardCheck } from "react-icons/bs";
 import { FiLogOut, FiTrash2 } from "react-icons/fi";
 import { FaTasks } from "react-icons/fa";
+import ManageTask from "./ManageTask";
+import CreateTask from "./CreateTask";
 
 const SprintsAdmin = () => {
   const { sprintId, setSprintId } = useContext(SprintContext);
-  const { userId, setUserId } = useContext(UserContext);
+  const { setUserId } = useContext(UserContext);
+  const { setTaskId } = useContext(TaskContext);
   const [sprint, setSprint] = useState(null);
   const [tasks, setTasks] = useState([]);
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
+  const [showManageTask, setShowManageTask] = useState(false);
+  const [showCreateTask, setShowCreateTask] = useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -48,9 +55,7 @@ const SprintsAdmin = () => {
 
   const handleDeleteSprint = async () => {
     try {
-      const response = await fetch(`/sprints/${sprintId}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(`/sprints/${sprintId}`, { method: "DELETE" });
 
       if (response.ok) {
         alert("Sprint eliminado con éxito.");
@@ -63,6 +68,11 @@ const SprintsAdmin = () => {
       console.error("Error eliminando el sprint:", error);
       alert("No se pudo eliminar el sprint.");
     }
+  };
+
+  const handleTaskClick = (taskId) => {
+    setTaskId(taskId);
+    setShowManageTask(true);
   };
 
   return (
@@ -82,9 +92,9 @@ const SprintsAdmin = () => {
             <h2>{sprint.name}</h2>
             <p><strong>Descripción:</strong> {sprint.description}</p>
             <p><strong>Proyecto:</strong> {sprint.project}</p>
-            <button className="close-button" onClick={() => setShowConfirmDelete(true)}>
+            <button className="close-button" onClick={() => handleDeleteSprint()}>
               <FiTrash2 className="delete-icon" />
-              Eliminar Sprint
+               Eliminar Sprint
             </button>
           </div>
         )}
@@ -95,33 +105,26 @@ const SprintsAdmin = () => {
           <div className="tasks-container">
             {tasks.length > 0 ? (
               tasks.map((task) => (
-                <div key={task.id} className="task-card">
+                <button key={task.id} className="task-card" onClick={() => handleTaskClick(task.id)}>
                   <FaTasks className="task-icon" />
                   <h3>{task.title}</h3>
                   <p>{task.description}</p>
                   <p><strong>Estado:</strong> {task.state}</p>
-                </div>
+                </button>
               ))
             ) : (
               <p className="no-tasks">No hay tareas para este sprint.</p>
             )}
           </div>
+          <button className="close-button" onClick={() => setShowCreateTask(true)}> + Agregar Task</button>
         </div>
-      </div>
-
-      {/* Pantalla emergente de confirmación */}
-      {showConfirmDelete && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <h2>¿Eliminar Sprint?</h2>
-            <p>Esta acción no se puede deshacer.</p>
-            <div className="buttons-container">
-              <button className="close-button" onClick={() => setShowConfirmDelete(false)}>Cancelar</button>
-              <button className="close-button" onClick={handleDeleteSprint}>Eliminar</button>
-            </div>
-          </div>
-        </div>
-      )}
+      <div>
+            
+    </div>
+    
+    </div>
+      {showCreateTask && <CreateTask onClose={() => setShowCreateTask(false)} />}
+      {showManageTask && <ManageTask onClose={() => setShowManageTask(false)} />}
     </div>
   );
 };

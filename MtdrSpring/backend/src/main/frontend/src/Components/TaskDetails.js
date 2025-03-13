@@ -68,13 +68,16 @@ const TaskDetails = () => {
               <option value="Terminada">Terminada</option>
             </select>
 
-            <button className="status-button" onClick={handleChangeState}>Actualizar Estado</button>
+            
           </>
         ) : (
           <p>Cargando detalles...</p>
         )}
-
-        <button className="close-button" onClick={handleClose}>Cerrar</button>
+        <div className="modal-buttons">
+          <button className="close-button" onClick={handleChangeState}>Actualizar Estado</button>
+          <button className="close-button" onClick={handleClose}>Cerrar</button>
+        </div>
+        
       </div>
     </div>
   );

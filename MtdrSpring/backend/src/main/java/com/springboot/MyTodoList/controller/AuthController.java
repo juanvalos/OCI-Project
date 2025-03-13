@@ -1,5 +1,8 @@
 package com.springboot.MyTodoList.controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,5 +43,19 @@ public class AuthController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping(value = "/users")
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = authService.getAllUsers();
+        List<User> responseUsers = users.stream()
+                .map(user -> {
+                    User responseUser = new User();
+                    responseUser.setId(user.getId());
+                    responseUser.setName(user.getName());
+                    return responseUser;
+                })
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(responseUsers);
     }
 }

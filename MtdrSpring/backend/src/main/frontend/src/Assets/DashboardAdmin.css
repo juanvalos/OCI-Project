@@ -1,4 +1,3 @@
-/* Nueva Sección de Productividad */
 .productivity-section {
     flex: 1;
     background: #f0f2f5;
@@ -43,7 +42,6 @@
     background-color: #A2322D;
 }
 
-/* Botón de Crear Sprint */
 .create-sprint-button {
     background-color: #A2322D;
     color: white;
