@@ -82,4 +82,10 @@ public class TaskController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping(value = "/tasks")
+    public ResponseEntity<List<Task>> getAllTasks() {
+        List<Task> tasks = taskService.getAllTasks();
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
+    }
 }

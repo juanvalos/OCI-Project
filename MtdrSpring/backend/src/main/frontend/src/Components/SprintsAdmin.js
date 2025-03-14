@@ -32,21 +32,20 @@ const SprintsAdmin = () => {
         console.error("Error obteniendo detalles del sprint:", error);
       }
     };
-
-    const fetchTasks = async () => {
-      try {
-        const response = await fetch(`/tasksbySprintId?sprintId=${sprintId}`);
-        const data = await response.json();
-        setTasks(data);
-      } catch (error) {
-        console.error("Error obteniendo tareas del sprint:", error);
-      }
-    };
-
     fetchSprintDetails();
     fetchTasks();
   }, [sprintId]);
 
+  const fetchTasks = async () => {
+    try {
+      const response = await fetch(`/tasksbySprintId?sprintId=${sprintId}`);
+      const data = await response.json();
+      setTasks(data);
+    } catch (error) {
+      console.error("Error obteniendo tareas del sprint:", error);
+    }
+  };
+  
   const handleLogout = () => {
     setUserId(0);
     setSprintId(0);
@@ -107,8 +106,7 @@ const SprintsAdmin = () => {
               tasks.map((task) => (
                 <button key={task.id} className="task-card" onClick={() => handleTaskClick(task.id)}>
                   <FaTasks className="task-icon" />
-                  <h3>{task.title}</h3>
-                  <p>{task.description}</p>
+                  <h3>{task.name}</h3>
                   <p><strong>Estado:</strong> {task.state}</p>
                 </button>
               ))
@@ -123,8 +121,8 @@ const SprintsAdmin = () => {
     </div>
     
     </div>
-      {showCreateTask && <CreateTask onClose={() => setShowCreateTask(false)} />}
-      {showManageTask && <ManageTask onClose={() => setShowManageTask(false)} />}
+    {showCreateTask && <CreateTask onClose={() => { setShowCreateTask(false); fetchTasks(); }} />}
+    {showManageTask && <ManageTask onClose={() => {setShowManageTask(false); fetchTasks();}} />}
     </div>
   );
 };
