@@ -16,6 +16,7 @@ const SprintDetails = () => {
   const [sprint, setSprint] = useState(null);
   const [tasks, setTasks] = useState([]);
   const [showTaskModal, setShowTaskModal] = useState(false);
+  const [selectedTask, setSelectedTask] = useState(null); // Agregar estado para la tarea seleccionada
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,24 +26,26 @@ const SprintDetails = () => {
       setSprint(data);
     };
 
-    const fetchTasks = async () => {
-      const response = await fetch(`/tasksUserSprint?oracleUserId=${userId}&sprintId=${sprintId}`);
-      const data = await response.json();
-      setTasks(data);
-    };
-
     fetchSprintDetails();
     fetchTasks();
+
   }, [userId, sprintId]);
 
+  const fetchTasks = async () => {
+    const response = await fetch(`/tasksUserSprint?oracleUserId=${userId}&sprintId=${sprintId}`);
+    const data = await response.json();
+    setTasks(data);
+  };
+  
   const handleLogout = () => {
     setUserId(0);
     setSprintId(0);
     navigate("/");
   };
 
-  const handleTaskClick = (taskId) => {
-    setTaskId(taskId);
+  const handleTaskClick = (task) => {
+    setTaskId(task.id);
+    setSelectedTask(task); // Establecer la tarea seleccionada
     setShowTaskModal(true);
   };
 
@@ -71,10 +74,9 @@ const SprintDetails = () => {
           <div className="tasks-container">
             {tasks.length > 0 ? (
               tasks.map((task) => (
-                <button key={task.id} className="task-card" onClick={() => handleTaskClick(task.id)}>
+                <button key={task.id} className="task-card" onClick={() => handleTaskClick(task)}>
                   <FaTasks className="task-icon" />
-                  <h3>{task.title}</h3>
-                  <p>{task.description}</p>
+                  <h3>{task.name}</h3>
                   <p><strong>Estado:</strong> {task.state}</p>
                 </button>
               ))
@@ -85,7 +87,7 @@ const SprintDetails = () => {
         </div>
       </div>
 
-      {showTaskModal && <TaskDetails onClose={() => setShowTaskModal(false)} />}
+      {showTaskModal && <TaskDetails task={selectedTask} onClose={() => { setShowTaskModal(false); fetchTasks(); }} />}
     </div>
   );
 };

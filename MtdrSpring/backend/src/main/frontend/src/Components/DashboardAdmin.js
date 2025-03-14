@@ -24,16 +24,16 @@ const DashboardUser = () => {
       setUser(data);
     };
 
-    const fetchSprints = async () => {
-      const response = await fetch("/sprints");
-      const data = await response.json();
-      setSprints(data);
-    };
-
     fetchUserProfile();
     fetchSprints();
   }, [userId]);
 
+  const fetchSprints = async () => {
+    const response = await fetch("/sprints");
+    const data = await response.json();
+    setSprints(data);
+  };
+  
   const handleLogout = () => {
     setUserId(0);
     setSprintId(0);
@@ -100,7 +100,16 @@ const DashboardUser = () => {
         </div>
       </div>
 
-      {showCreateSprint && <CreateSprint onClose={() => setShowCreateSprint(false)} onCreate={() => {}} />}
+    {showCreateSprint && (
+      <CreateSprint
+        onClose={() => setShowCreateSprint(false)}
+        onCreate={() => {
+          setShowCreateSprint(false);
+          fetchSprints();
+        }}
+      />
+    )}
+
     </div>
   );
 };

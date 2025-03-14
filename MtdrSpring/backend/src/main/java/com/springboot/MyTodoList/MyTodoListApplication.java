@@ -12,35 +12,39 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 import com.springboot.MyTodoList.controller.ToDoItemBotController;
-import com.springboot.MyTodoList.service.ToDoItemService;
+import com.springboot.MyTodoList.service.SprintService;
+import com.springboot.MyTodoList.service.TaskService;
 import com.springboot.MyTodoList.util.BotMessages;
 
 @SpringBootApplication
 public class MyTodoListApplication implements CommandLineRunner {
 
-	private static final Logger logger = LoggerFactory.getLogger(MyTodoListApplication.class);
+    private static final Logger logger = LoggerFactory.getLogger(MyTodoListApplication.class);
 
-	@Autowired
-	private ToDoItemService toDoItemService;
+    @Autowired
+    private SprintService sprintService;
 
-	@Value("${telegram.bot.token}")
-	private String telegramBotToken;
+    @Autowired
+    private TaskService taskService;
 
-	@Value("${telegram.bot.name}")
-	private String botName;
+    @Value("${telegram.bot.token}")
+    private String telegramBotToken;
 
-	public static void main(String[] args) {
-		SpringApplication.run(MyTodoListApplication.class, args);
-	}
+    @Value("${telegram.bot.name}")
+    private String botName;
 
-	@Override
-	public void run(String... args) throws Exception {
-		try {
-			TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
-			telegramBotsApi.registerBot(new ToDoItemBotController(telegramBotToken, botName, toDoItemService));
-			logger.info(BotMessages.BOT_REGISTERED_STARTED.getMessage());
-		} catch (TelegramApiException e) {
-			e.printStackTrace();
-		}
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(MyTodoListApplication.class, args);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        try {
+            TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
+            telegramBotsApi.registerBot(new ToDoItemBotController(telegramBotToken, botName, sprintService, taskService));
+            logger.info(BotMessages.BOT_REGISTERED_STARTED.getMessage());
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
 }
