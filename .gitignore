@@ -1,5 +1,4 @@
-# Local env files
-.env
+run-backend.bat
 # Compiled class file
 *.class
 
