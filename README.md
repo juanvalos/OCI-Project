@@ -79,6 +79,4 @@ Now you can start the backend using the `.bat` script:
 
 - Deployment scripts for OCI
 - CI/CD integration
-- Frontend usage guide
-
 ---
