@@ -62,7 +62,6 @@ mvn clean install
 Now you can start the backend using the `.bat` script:
 
 ```bash
-.
 .\run-backend.bat  
 ```
 
