@@ -4,7 +4,9 @@ public enum BotCommands {
 
     START_COMMAND("/start"), 
     VIEW_SPRINTS("/viewsprints"), 
-    VIEW_TASKS("/viewtasks"); // Mantener este comando
+    VIEW_TASKS("/viewtasks"), // Mantener este comando
+    CREATE_SPRINT("/createsprint"),
+    CREATE_TASK("/createtask");
 
     private String command;
 
