@@ -2,22 +2,21 @@
 
 Welcome to the **OCI Project** – a full-stack cloud native application developed to efficiently manage tasks and projects using Oracle Cloud Infrastructure (OCI). This project uses **Spring Boot** for the backend and **React** for the frontend, offering user authentication, role-based dashboards, and intuitive sprint and task management.
 
----
+
 
 ## 💡 Project Objective
 
 The main goal of this project is to deliver a scalable, secure, and modern task management solution powered by **OCI**. It allows users and administrators to manage projects, assign tasks, and track progress through a clean and responsive interface.
 
----
 
-## 🛠️ Tech Stack
+## 🛠️ Initial Setup
 
 - **Backend:** Java + Spring Boot  
 - **Frontend:** React  
 - **Database:** Oracle Autonomous Database (ATP)  
 - **Cloud Platform:** Oracle Cloud Infrastructure (OCI)  
 
----
+
 
 ## 🚀 Getting Started
 
@@ -48,6 +47,7 @@ pause
 ```
 
 This script simplifies launching the Spring Boot server.
+
 
 ### 3. Build the backend project
 
