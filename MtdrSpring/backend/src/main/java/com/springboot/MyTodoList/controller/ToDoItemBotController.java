@@ -58,10 +58,10 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
                 handleCreateTask(chatId);
             } else if (messageTextFromTelegram.startsWith("Sprint: ")) {
                 handleViewTasksBySprint(chatId, messageTextFromTelegram.replace("Sprint: ", ""));
-            } else if (messageTextFromTelegram.startsWith("new Sprint: ")) {
+            } else if (messageTextFromTelegram.startsWith("New sprint: ")) {
                 handleCreateSprint(chatId, messageTextFromTelegram.replace("New sprint: ", ""));
             } else if (messageTextFromTelegram.startsWith("Sprint name: ")) {
-                handleCreateTaskForSprint(chatId, messageTextFromTelegram.replace(": ", ""));
+                handleCreateTaskForSprint(chatId, messageTextFromTelegram.replace("Sprint name: ", ""));
             } else if (messageTextFromTelegram.startsWith("Task: ")) {
                 handleNewTask(chatId, messageTextFromTelegram.replace("Task: ", ""));
             } else if (messageTextFromTelegram.startsWith("User: ")) {
