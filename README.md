@@ -69,14 +69,14 @@ Now you can start the backend using the `.bat` script:
 ## 📌 Features
 
 - 🧑‍💼 Admin and user role separation  
-- 🔐 Secure authentication with password encryption  
 - 📊 Dashboards for task and project overview  
 - 🚧 Sprint creation and assignment tracking
-- 
 ---
 
 ## 🧪 Coming Soon
 
 - Deployment scripts for OCI
 - CI/CD integration
+- 🔐 Secure authentication with password encryption and 2 factor authentication
+
 ---
