@@ -9,7 +9,7 @@ const CreateTask = ({ onClose }) => {
   const [taskDetails, setTaskDetails] = useState({
     name: "",
     description: "",
-    difficulty: "Media", 
+    difficulty: "Media",
     priority: "Media",
     state: "Sin empezar",
   });
@@ -32,16 +32,22 @@ const CreateTask = ({ onClose }) => {
   };
 
   const handleCreateTask = async () => {
-    if (!selectedUser || !taskDetails.name) {
-      alert("Selecciona un usuario y escribe un nombre para la tarea.");
+    if (!selectedUser || !taskDetails.name || !taskDetails.description) {
+      alert("Selecciona un usuario, escribe un nombre y una descripción para la tarea.");
       return;
     }
 
     const newTask = {
-      ...taskDetails,
+      name: taskDetails.name,
+      description: taskDetails.description,
+      difficulty: taskDetails.difficulty,
+      priority: taskDetails.priority,
+      state: taskDetails.state,
       sprintId: sprintId,
       oracleUserId: selectedUser,
     };
+
+    console.log("Tarea a enviar:", newTask);
 
     try {
       const response = await fetch("/tasks", {
@@ -54,6 +60,8 @@ const CreateTask = ({ onClose }) => {
         alert("Tarea creada con éxito");
         onClose();
       } else {
+        const errorData = await response.json();
+        console.error("Error del servidor:", errorData);
         alert("Error al crear la tarea");
       }
     } catch (error) {
@@ -74,25 +82,37 @@ const CreateTask = ({ onClose }) => {
           ))}
         </select>
 
-        <input type="text" name="name" placeholder="Nombre de la tarea" onChange={handleChange} />
+        <input
+          type="text"
+          name="name"
+          placeholder="Nombre de la tarea"
+          value={taskDetails.name}
+          onChange={handleChange}
+        />
 
-        <input type="description" placeholder="Descripción" onChange={handleChange}></input>
+        <input
+          type="text"
+          name="description"
+          placeholder="Descripción"
+          value={taskDetails.description}
+          onChange={handleChange}
+        />
 
-        <label className ="labletask">Dificultad:</label>
+        <label>Dificultad:</label>
         <select name="difficulty" value={taskDetails.difficulty} onChange={handleChange}>
           <option value="Baja">Baja</option>
           <option value="Media">Media</option>
           <option value="Alta">Alta</option>
         </select>
 
-        <label className ="labletask" >Prioridad:</label>
+        <label>Prioridad:</label>
         <select name="priority" value={taskDetails.priority} onChange={handleChange}>
           <option value="Baja">Baja</option>
           <option value="Media">Media</option>
           <option value="Alta">Alta</option>
         </select>
 
-        <label className ="labletask" >Estado:</label>
+        <label>Estado:</label>
         <select name="state" value={taskDetails.state} onChange={handleChange}>
           <option value="Sin empezar">Sin empezar</option>
           <option value="En progreso">En progreso</option>
@@ -100,8 +120,12 @@ const CreateTask = ({ onClose }) => {
         </select>
 
         <div className="buttons-container">
-          <button className="close-button" onClick={handleCreateTask}>Crear Task</button>
-          <button className="close-button" onClick={onClose}>Cancelar</button>
+          <button className="close-button" onClick={handleCreateTask}>
+            Crear Task
+          </button>
+          <button className="close-button" onClick={onClose}>
+            Cancelar
+          </button>
         </div>
       </div>
     </div>

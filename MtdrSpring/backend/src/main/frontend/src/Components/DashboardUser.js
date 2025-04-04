@@ -45,7 +45,7 @@ const DashboardUser = () => {
   return (
     <div className="dashboard-container">
       <div className="dashboard-header">
-        <h1 className="dashboard-title">📌 Orace User Dashboard</h1>
+        <h1 className="dashboard-title">📌 Oracle User Dashboard</h1>
           <button className="logout-button" onClick={handleLogout}>
             <FiLogOut className="logout-icon" />
               Cerrar sesión

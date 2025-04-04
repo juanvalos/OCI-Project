@@ -42,7 +42,7 @@ const ManageTask = ({ onClose }) => {
         <h2>Detalles de la Tarea</h2>
         {task ? (
           <>
-            <p><strong>Nombre:</strong> {task.title}</p>
+            <p><strong>Nombre:</strong> {task.name}</p>
             <p><strong>Descripción:</strong> {task.description}</p>
             <p><strong>Dificultad:</strong> {task.difficulty}</p>
             <p><strong>Prioridad:</strong> {task.priority}</p>

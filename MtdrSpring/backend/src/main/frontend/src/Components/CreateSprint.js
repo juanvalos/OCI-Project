@@ -13,13 +13,11 @@ const CreateSprint = ({ onClose, onCreate }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newSprint),
       });
-
+  
       if (response.ok) {
         const createdSprint = await response.json();
-        onCreate(createdSprint);
-        onClose();
         alert("Sprint creado con éxito.");
-        navigate(-1); // Regresa a la página anterior
+        onCreate();
       } else {
         alert("Error al crear el Sprint.");
       }
@@ -28,6 +26,7 @@ const CreateSprint = ({ onClose, onCreate }) => {
       alert("No se pudo crear el Sprint.");
     }
   };
+  
 
   return (
     <div className="modal-overlay">

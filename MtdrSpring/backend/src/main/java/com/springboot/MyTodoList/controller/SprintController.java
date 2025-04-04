@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.MyTodoList.model.Sprint;
@@ -50,5 +51,12 @@ public class SprintController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping(value = "/sprints/ids")
+    public ResponseEntity<Integer> getSprintIdByName(@RequestParam String name) {
+        Optional<Sprint> sprint = sprintService.findSprintByName(name);
+        return sprint.map(value -> new ResponseEntity<>(value.getId(), HttpStatus.OK))
+                     .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }
