@@ -141,7 +141,64 @@ GRANT CREATE SESSION, CREATE VIEW, CREATE SEQUENCE, CREATE PROCEDURE TO $U;
 GRANT CREATE TABLE, CREATE TRIGGER, CREATE TYPE, CREATE MATERIALIZED VIEW TO $U;
 GRANT CONNECT, RESOURCE, pdb_dba, SODA_APP to $U;
 CREATE TABLE TODOUSER.todoitem (id NUMBER GENERATED ALWAYS AS IDENTITY, description VARCHAR2(4000), creation_ts TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP, done NUMBER(1,0) , PRIMARY KEY (id));
+CREATE TABLE TODOUSER.oracle_user (
+    id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    username VARCHAR2(50) NOT NULL,
+    password VARCHAR2(255) NOT NULL,
+    name VARCHAR2(100) NOT NULL,
+    mail VARCHAR2(100) NOT NULL,
+    role VARCHAR2(50) NOT NULL,
+    modality VARCHAR2(50) NOT NULL,
+    permits NUMBER(1) NOT NULL
+);
+
+CREATE TABLE TODOUSER.sprints (
+    id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name VARCHAR2(100) NOT NULL,
+    description VARCHAR2(255) NOT NULL,
+    project VARCHAR2(100) NOT NULL
+);
+
+CREATE TABLE TODOUSER.tasks (
+    id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name VARCHAR2(100) NOT NULL,
+    description VARCHAR2(255),
+    difficulty VARCHAR2(50),
+    priority VARCHAR2(50),
+    state VARCHAR2(50),
+    sprintId NUMBER,
+    oracle_userId NUMBER
+);
 insert into TODOUSER.todoitem  (description, done) values ('Manual item insert', 0);
+
+INSERT INTO TODOUSER.oracle_user (username, password, name, mail, role, modality, permits)
+VALUES ('roxanaAranda', 'password123', 'Roxana Aranda', 'A0163911@tec.mx', 'Project Manager', 'Full-Time', 1);
+
+INSERT INTO TODOUSER.oracle_user (username, password, name, mail, role, modality, permits)
+VALUES ('juanvaloss', 'password456', 'Juan Avalos', 'A01276329@tec.mx', 'Backend Developer', 'Full-Time', 0);
+
+INSERT INTO TODOUSER.oracle_user (username, password, name, mail, role, modality, permits)
+VALUES ('marielaQuintanar', 'password123', 'Mariela Quintanar', 'A01642675@tec.mx', 'Frontend Developer', 'Part-Time', 0);
+
+INSERT INTO TODOUSER.sprints (name, description, project) 
+VALUES ('Sprint 1', 'Desarrollo de login', 'Telegram-Bot-Oracle');
+
+INSERT INTO TODOUSER.sprints (name, description, project) 
+VALUES ('Sprint 2', 'Implementación de API', 'Telegram-Bot-Oracle');
+
+-- Insertar tareas de prueba en TODOUSER
+INSERT INTO TODOUSER.tasks (name, description, difficulty, priority, state, sprintId, oracle_userId)
+VALUES ('Certificación', 'Obtener certificación OCI fundations.', 'Media', 'Baja','Sin empezar', 1, 3);
+
+INSERT INTO TODOUSER.tasks (name, description, difficulty, priority, state, sprintId, oracle_userId)
+VALUES ('Conectar base de datos', 'Configurar conexión con Oracle DB', 'Alta', 'Alta', 'Terminada', 1, 2); 
+
+INSERT INTO TODOUSER.tasks (name, description, difficulty, priority, state, sprintId, oracle_userId)
+VALUES ('Rutas login', 'Crear rutas para autenticarse usando Springboot', 'Media', 'Alta','En progreso', 2, 2);
+
+INSERT INTO TODOUSER.tasks (name, description, difficulty, priority, state, sprintId, oracle_userId)
+VALUES ('Crear dashboard para OracleAdmin', 'Crear dashboar suando react y CSS', 'Media', 'Alta', 'En progreso', 1, 3); 
+
 commit;
 !
   state_set_done TODO_USER
