@@ -43,6 +43,8 @@ const TaskDetails = ({ task, onClose }) => {
             <p><strong>Dificultad:</strong> {task.difficulty}</p>
             <p><strong>Prioridad:</strong> {task.priority}</p>
             <p><strong>Estado:</strong> {task.state}</p>
+            <p><strong>Horas estimadas:</strong> {task.expectedHours}</p>
+            <p><strong>Horas reales:</strong> {task.actualHours}</p>
 
             <label>Cambiar Estado:</label>
             <select value={selectedState} onChange={(e) => setSelectedState(e.target.value)}>

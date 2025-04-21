@@ -1,5 +1,7 @@
 package com.springboot.MyTodoList.controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -11,7 +13,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException; 
 
 import com.springboot.MyTodoList.model.Sprint;
 import com.springboot.MyTodoList.model.Task;
@@ -192,12 +194,15 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
             String difficulty = details[2].trim();
             String priority = details[3].trim();
             String state = details[4].trim();
+            int expectedHours = Integer.parseInt(details[5].trim());
+            int actualHours = Integer.parseInt(details[6].trim());
+            LocalDate dueDate = LocalDate.parse(details[7], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
             Optional<Integer> sprintId = sprintService.getCurrentSprintId(chatId);
             Optional<Integer> userId = authService.getCurrentUserId(chatId);
 
             if (sprintId.isPresent() && userId.isPresent()) {
-                Task task = new Task(taskName, description, difficulty, priority, state, sprintId.get(), userId.get());
+                Task task = new Task(taskName, description, difficulty, priority, state, sprintId.get(), userId.get(), expectedHours, actualHours, java.sql.Date.valueOf(dueDate));
                 taskService.saveTask(task);
                 BotHelper.sendMessageToTelegram(chatId, BotMessages.TASK_CREATED_SUCCESSFULLY.getMessage(), this);
             } else {
