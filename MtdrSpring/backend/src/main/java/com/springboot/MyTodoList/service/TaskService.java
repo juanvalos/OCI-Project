@@ -53,6 +53,16 @@ public class TaskService {
         }
     }
 
+    public Task updateTaskHours(int id, Integer actualHours) {
+        Optional<Task> taskOptional = taskRepository.findById(id);
+        if (taskOptional.isPresent()) {
+            Task task = taskOptional.get();
+            task.setActualHours(actualHours);
+            return taskRepository.save(task);
+        }
+        return null;
+    }
+
     public Optional<Task> getTaskById(int id) {
         return taskRepository.findById(id);
     }

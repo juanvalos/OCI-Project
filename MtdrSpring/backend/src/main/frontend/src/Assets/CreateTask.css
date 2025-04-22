@@ -41,3 +41,13 @@
 .labletask{
     text-align: left;
 }
+
+.hours-container {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.hours-container input {
+    flex: 1;
+}

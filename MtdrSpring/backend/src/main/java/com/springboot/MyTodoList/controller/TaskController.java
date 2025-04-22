@@ -65,6 +65,16 @@ public class TaskController {
         }
     }
 
+    @PutMapping(value = "/tasks/hours/{id}")
+    public ResponseEntity<Task> updateTaskHours(@PathVariable int id, @RequestParam Integer actualHours) {
+        Task updatedTask = taskService.updateTaskHours(id, actualHours);
+        if (updatedTask != null) {
+            return new ResponseEntity<>(updatedTask, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @GetMapping(value = "/taskDetails/{id}")
     public ResponseEntity<Task> getTaskDetails(@PathVariable int id) {
         Optional<Task> task = taskService.getTaskById(id);

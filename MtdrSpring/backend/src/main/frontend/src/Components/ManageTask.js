@@ -49,6 +49,8 @@ const ManageTask = ({ onClose }) => {
             <p><strong>Estado:</strong> {task.state}</p>
             <p><strong>Horas estimadas:</strong> {task.expectedHours}</p>
             <p><strong>Horas reales:</strong> {task.actualHours}</p>
+            <p><strong>Fecha de Entrega:</strong> {task.dueDate ? new Date(task.dueDate).toLocaleDateString() : "No especificada"}</p>
+            
             <div className="buttons-container">
               <button className="close-button" onClick={onClose}>Cancelar</button>
               <button className="close-button" onClick={handleDeleteTask}>Eliminar Tarea</button>
