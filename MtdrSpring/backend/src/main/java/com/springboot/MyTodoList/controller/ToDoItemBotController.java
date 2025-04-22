@@ -105,7 +105,8 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
         for (Sprint sprint : sprints) {
             sprintsMessage.append("Name: ").append(sprint.getName()).append("\n")
                           .append("Description: ").append(sprint.getDescription()).append("\n")
-                          .append("Project: ").append(sprint.getProject()).append("\n\n");
+                          .append("Project: ").append(sprint.getProject()).append("\n")
+                          .append("Due Date: ").append(sprint.getDueDate()).append("\n\n");
         }
 
         sprintsMessage.append(BotMessages.SELECT_SPRINT.getMessage());
@@ -123,7 +124,10 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
                             .append("Description: ").append(task.getDescription()).append("\n")
                             .append("Difficulty: ").append(task.getDifficulty()).append("\n")
                             .append("Priority: ").append(task.getPriority()).append("\n")
-                            .append("State: ").append(task.getState()).append("\n\n");
+                            .append("State: ").append(task.getState()).append("\n")
+                            .append("Expected Hours: ").append(task.getExpectedHours()).append("\n")
+                            .append("Actual Hours: ").append(task.getActualHours()).append("\n")
+                            .append("Due Date: ").append(task.getDueDate()).append("\n\n");
             }
 
             BotHelper.sendMessageToTelegram(chatId, tasksMessage.toString(), this);
@@ -177,8 +181,13 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 
     private void handleCreateSprint(long chatId, String sprintDetails) {
         String[] details = sprintDetails.split(",");
-        if (details.length == 3) {
-            Sprint sprint = new Sprint(details[0].trim(), details[1].trim(), details[2].trim());
+        if (details.length == 4) { // Updated to expect 4 parameters
+            String name = details[0].trim();
+            String description = details[1].trim();
+            String project = details[2].trim();
+            LocalDate dueDate = LocalDate.parse(details[3].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+            Sprint sprint = new Sprint(name, description, project, java.sql.Date.valueOf(dueDate));
             sprintService.saveSprint(sprint);
             BotHelper.sendMessageToTelegram(chatId, BotMessages.SPRINT_CREATED.getMessage(), this);
         } else {
@@ -188,7 +197,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 
     private void handleNewTask(long chatId, String taskDetails) {
         String[] details = taskDetails.split(",");
-        if (details.length == 5) {
+        if (details.length == 8) {
             String taskName = details[0].trim();
             String description = details[1].trim();
             String difficulty = details[2].trim();
@@ -196,7 +205,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
             String state = details[4].trim();
             int expectedHours = Integer.parseInt(details[5].trim());
             int actualHours = Integer.parseInt(details[6].trim());
-            LocalDate dueDate = LocalDate.parse(details[7], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            LocalDate dueDate = LocalDate.parse(details[7].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
             Optional<Integer> sprintId = sprintService.getCurrentSprintId(chatId);
             Optional<Integer> userId = authService.getCurrentUserId(chatId);

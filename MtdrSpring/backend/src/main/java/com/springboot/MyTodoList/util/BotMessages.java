@@ -15,7 +15,7 @@ public enum BotMessages {
     INVALID_OPTION("Invalid option. Please try again."),
     SELECT_USER_FOR_TASK("Please select a user to assign the task to. The format has to be -> User: <user_name>"),
     TASK_CREATED_SUCCESSFULLY("The task has been created and assigned successfully."),
-    INVALID_TASK_DETAILS("The task details are invalid. Please use the next format -> New task: <Name>, <Description>, <Difficulty (Alta/Media/Baja)>, <Priority (Alta/Media/Baja)>,  <State (Sin terminar/En progreso/Terminada)>."),
+    INVALID_TASK_DETAILS("The task details are invalid. Please use the next format -> New task: next format -> Task: [Name], [Description], [Difficulty (Alta/Media/Baja)], [Priority (Alta/Media/Baja)], [State (Sin empezar/En proceso/Terminada)], [Horas estimadas], [Horas reales (o 0)], [Fecha límite (YYYY-MM-DD)]."),
     USER_NOT_FOUND("The specified user was not found. Please select a valid user."),
     NO_SPRINT_OR_USER_SELECTED("No valid sprint or user has been selected. Please select both before creating the task."),
     BOT_REGISTERED_STARTED("Bot registered and started successfully!");
