@@ -1,6 +1,6 @@
 package com.springboot.MyTodoList.controller;
 
-import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +25,8 @@ import com.springboot.MyTodoList.util.BotCommands;
 import com.springboot.MyTodoList.util.BotHelper;
 import com.springboot.MyTodoList.util.BotLabels;
 import com.springboot.MyTodoList.util.BotMessages;
+
+
 
 public class ToDoItemBotController extends TelegramLongPollingBot {
 
@@ -103,10 +105,15 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
         StringBuilder sprintsMessage = new StringBuilder(BotMessages.VIEW_SPRINTS_MESSAGE.getMessage() + "\n\n");
 
         for (Sprint sprint : sprints) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String formattedDate = (sprint.getDueDate() != null) ? 
+            sprint.getDueDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().format(formatter) : "No especificado";
+
+
             sprintsMessage.append("Name: ").append(sprint.getName()).append("\n")
                           .append("Description: ").append(sprint.getDescription()).append("\n")
                           .append("Project: ").append(sprint.getProject()).append("\n")
-                          .append("Due Date: ").append(sprint.getDueDate()).append("\n\n");
+                          .append("Due Date: ").append(formattedDate).append("\n\n");
         }
 
         sprintsMessage.append(BotMessages.SELECT_SPRINT.getMessage());
@@ -120,6 +127,10 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
             StringBuilder tasksMessage = new StringBuilder(BotMessages.VIEW_TASKS_MESSAGE.getMessage() + "\n\n");
 
             for (Task task : tasks) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                String formattedDate = (task.getDueDate() != null) ? 
+                    task.getDueDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().format(formatter) : "No especificado";
+
                 tasksMessage.append("Name: ").append(task.getName()).append("\n")
                             .append("Description: ").append(task.getDescription()).append("\n")
                             .append("Difficulty: ").append(task.getDifficulty()).append("\n")
@@ -127,7 +138,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
                             .append("State: ").append(task.getState()).append("\n")
                             .append("Expected Hours: ").append(task.getExpectedHours()).append("\n")
                             .append("Actual Hours: ").append(task.getActualHours()).append("\n")
-                            .append("Due Date: ").append(task.getDueDate()).append("\n\n");
+                            .append("Due Date: ").append(formattedDate).append("\n\n");
             }
 
             BotHelper.sendMessageToTelegram(chatId, tasksMessage.toString(), this);
@@ -181,13 +192,13 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 
     private void handleCreateSprint(long chatId, String sprintDetails) {
         String[] details = sprintDetails.split(",");
-        if (details.length == 4) { // Updated to expect 4 parameters
+        if (details.length == 4) { 
             String name = details[0].trim();
             String description = details[1].trim();
             String project = details[2].trim();
-            LocalDate dueDate = LocalDate.parse(details[3].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            java.sql.Date dueDate = java.sql.Date.valueOf(details[3].trim());
 
-            Sprint sprint = new Sprint(name, description, project, java.sql.Date.valueOf(dueDate));
+            Sprint sprint = new Sprint(name, description, project, dueDate);
             sprintService.saveSprint(sprint);
             BotHelper.sendMessageToTelegram(chatId, BotMessages.SPRINT_CREATED.getMessage(), this);
         } else {
@@ -205,13 +216,13 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
             String state = details[4].trim();
             int expectedHours = Integer.parseInt(details[5].trim());
             int actualHours = Integer.parseInt(details[6].trim());
-            LocalDate dueDate = LocalDate.parse(details[7].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            java.sql.Date dueDate = java.sql.Date.valueOf(details[7].trim());
 
             Optional<Integer> sprintId = sprintService.getCurrentSprintId(chatId);
             Optional<Integer> userId = authService.getCurrentUserId(chatId);
 
             if (sprintId.isPresent() && userId.isPresent()) {
-                Task task = new Task(taskName, description, difficulty, priority, state, sprintId.get(), userId.get(), expectedHours, actualHours, java.sql.Date.valueOf(dueDate));
+                Task task = new Task(taskName, description, difficulty, priority, state, sprintId.get(), userId.get(), expectedHours, actualHours, dueDate);
                 taskService.saveTask(task);
                 BotHelper.sendMessageToTelegram(chatId, BotMessages.TASK_CREATED_SUCCESSFULLY.getMessage(), this);
             } else {

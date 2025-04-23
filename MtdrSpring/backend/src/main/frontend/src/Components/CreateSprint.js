@@ -4,7 +4,6 @@ import "../Assets/CreateSprint.css";
 
 const CreateSprint = ({ onClose, onCreate }) => {
   const [newSprint, setNewSprint] = useState({ name: "", description: "", project: "Telegram-Bot-Oracle" });
-  const navigate = useNavigate(); // Hook para navegación
 
   const handleCreateSprint = async () => {
     try {
@@ -15,7 +14,6 @@ const CreateSprint = ({ onClose, onCreate }) => {
       });
   
       if (response.ok) {
-        const createdSprint = await response.json();
         alert("Sprint creado con éxito.");
         onCreate();
       } else {
@@ -49,6 +47,15 @@ const CreateSprint = ({ onClose, onCreate }) => {
           placeholder="Proyecto"
           value={newSprint.project}
           readOnly
+        />
+
+        <label>Fecha de Entrega:</label>
+        <input
+          type="date"
+          name="dueDate"
+          placeholder="mm / dd / aaaa"
+          value={newSprint.dueDate}
+          onChange={handleCreateSprint}
         />
 
         {/* Contenedor de botones alineados */}
