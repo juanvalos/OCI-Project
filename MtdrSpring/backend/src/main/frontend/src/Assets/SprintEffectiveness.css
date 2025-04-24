@@ -1,0 +1,109 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.effectiveness-container {
+    width: 100vw;
+    height: 100vh;
+    background-color: #f0f2f5;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header del Dashboard */
+.effectiveness-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #312d2a;
+    color: #f0f2f5;
+    padding: 20px;
+    border-radius: 0 0 8px 8px;
+}
+
+.effectiveness-title {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* Contenido Principal */
+.effectiveness-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: none;
+    height: 100%;
+    padding: 0 40px;
+    gap: 20px;
+    align-items: center;
+}
+
+/* Panel de selección de Sprint */
+.sprint-panel,
+.effectiveness-panel {
+    flex: 1;
+    min-width: 280px;
+    max-width: 500px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.sprint-panel h2,
+.effectiveness-panel h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #312d2a;
+}
+
+.sprint-dropdown {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Lista de efectividad */
+.effectiveness-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.effectiveness-list li {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #2d3436;
+}
+
+.user-eff-card {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    width: 180px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: default;
+}
