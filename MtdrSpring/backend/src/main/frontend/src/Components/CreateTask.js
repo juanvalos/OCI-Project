@@ -12,6 +12,9 @@ const CreateTask = ({ onClose }) => {
     difficulty: "Media",
     priority: "Media",
     state: "Sin empezar",
+    expectedHours: "",
+    actualHours: "",
+    dueDate: "",
   });
 
   useEffect(() => {
@@ -45,6 +48,9 @@ const CreateTask = ({ onClose }) => {
       state: taskDetails.state,
       sprintId: sprintId,
       oracleUserId: selectedUser,
+      expectedHours: parseInt(taskDetails.expectedHours, 10) || 0,
+      actualHours: parseInt(taskDetails.actualHours, 10) || 0,
+      dueDate: taskDetails.dueDate,
     };
 
     console.log("Tarea a enviar:", newTask);
@@ -118,6 +124,33 @@ const CreateTask = ({ onClose }) => {
           <option value="En progreso">En progreso</option>
           <option value="Terminada">Terminada</option>
         </select>
+        
+        <label>Horas esperadas y reales:</label>
+        <div className="hours-container">
+          <input
+            type="number"
+            name="expectedHours"
+            placeholder="Horas esperadas"
+            value={taskDetails.expectedHours}
+            onChange={handleChange}
+          />
+          <input
+            type="number"
+            name="actualHours"
+            placeholder="Horas reales"
+            value={taskDetails.actualHours}
+            onChange={handleChange}
+          />
+        </div>
+
+        <label>Fecha de Entrega:</label>
+        <input
+          type="date"
+          name="dueDate"
+          placeholder="mm / dd / aaaa"
+          value={taskDetails.dueDate}
+          onChange={handleChange}
+        />
 
         <div className="buttons-container">
           <button className="close-button" onClick={handleCreateTask}>

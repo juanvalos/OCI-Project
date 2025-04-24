@@ -42,4 +42,10 @@ public class AuthService {
     public Optional<Integer> getCurrentUserId(long chatId) {
         return Optional.ofNullable(userContext.get(chatId));
     }
+
+    public String getUserNameById(int userId) {
+        return userRepository.findById(userId)
+                             .map(User::getName) // Suponiendo que la entidad User tiene un campo "name"
+                             .orElse("Usuario desconocido");
+    }
 }

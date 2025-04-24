@@ -1,4 +1,3 @@
-run-backend.bat
 # Compiled class file
 *.class
 
@@ -49,3 +48,5 @@ frontend/package-lock.json
 frontend/npm-debug.log*
 frontend/yarn-debug.log*
 frontend/yarn-error.log*
+
+MtdrSpring/backend/run-backend.bat

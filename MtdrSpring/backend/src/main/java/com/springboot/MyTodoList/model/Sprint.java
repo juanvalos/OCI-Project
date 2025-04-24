@@ -1,5 +1,7 @@
 package com.springboot.MyTodoList.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,13 +26,17 @@ public class Sprint {
     @Column(name = "project", nullable = false, length = 100)
     private String project;
 
+    @Column(name = "DUE_DATE")
+    private Date dueDate;
+
     public Sprint() {
     }
 
-    public Sprint(String name, String description, String project) {
+    public Sprint(String name, String description, String project, Date dueDate) {
         this.name = name;
         this.description = description;
         this.project = project;
+        this.dueDate = dueDate;
     }
 
     // Getters and Setters
@@ -65,5 +71,13 @@ public class Sprint {
 
     public void setProject(String project) {
         this.project = project;
+    }
+
+    public Date getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
     }
 }
