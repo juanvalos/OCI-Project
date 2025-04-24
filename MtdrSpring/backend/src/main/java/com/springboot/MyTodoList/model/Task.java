@@ -1,5 +1,7 @@
 package com.springboot.MyTodoList.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,10 +38,20 @@ public class Task {
     @Column(name = "ORACLE_USERID")
     private int oracleUserId;
 
+    @Column(name = "EXPECTED_HOURS")
+    private Integer expectedHours; // Changed from int to Integer
+
+    @Column(name = "ACTUAL_HOURS")
+    private Integer actualHours; // Changed from int to Integer
+
+    @Column(name = "DUE_DATE")
+    private Date dueDate;
+
+
     public Task() {
     }
 
-    public Task(String name, String description, String difficulty, String priority, String state, int sprintId, int oracleUserId) {
+    public Task(String name, String description, String difficulty, String priority, String state, int sprintId, int oracleUserId, Integer expectedHours, Integer actualHours, Date dueDate) {
         this.name = name;
         this.description = description;
         this.difficulty = difficulty;
@@ -47,6 +59,9 @@ public class Task {
         this.state = state;
         this.sprintId = sprintId;
         this.oracleUserId = oracleUserId;
+        this.expectedHours = expectedHours;
+        this.actualHours = actualHours;
+        this.dueDate = dueDate;
     }
 
     public int getId() {
@@ -111,5 +126,29 @@ public class Task {
 
     public void setoracleUserId (int oracleUserId) {
         this.oracleUserId = oracleUserId;
+    }
+
+    public Integer getExpectedHours() {
+        return expectedHours;
+    }
+
+    public void setExpectedHours(Integer expectedHours) {
+        this.expectedHours = expectedHours;
+    }
+
+    public Integer getActualHours() {
+        return actualHours;
+    }
+
+    public void setActualHours(Integer actualHours) {
+        this.actualHours = actualHours;
+    }
+
+    public Date getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
     }
 }

@@ -1,6 +1,7 @@
 package com.springboot.MyTodoList.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,16 @@ public class TaskController {
         }
     }
 
+    @PutMapping(value = "/tasks/hours/{id}")
+    public ResponseEntity<Task> updateTaskHours(@PathVariable int id, @RequestParam Integer actualHours) {
+        Task updatedTask = taskService.updateTaskHours(id, actualHours);
+        if (updatedTask != null) {
+            return new ResponseEntity<>(updatedTask, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @GetMapping(value = "/taskDetails/{id}")
     public ResponseEntity<Task> getTaskDetails(@PathVariable int id) {
         Optional<Task> task = taskService.getTaskById(id);
@@ -87,5 +98,17 @@ public class TaskController {
     public ResponseEntity<List<Task>> getAllTasks() {
         List<Task> tasks = taskService.getAllTasks();
         return new ResponseEntity<>(tasks, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/sprint/{sprintId}/productivity")
+    public ResponseEntity<Map<String, Double>> getWeightedProductivityBySprint(@PathVariable int sprintId) {
+        Map<String, Double> productivity = taskService.calculateWeightedProductivityBySprint(sprintId);
+        return new ResponseEntity<>(productivity, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/sprint/{sprintId}/effectiveness")
+    public ResponseEntity<Map<String, Double>> getEffectivenessBySprint(@PathVariable int sprintId) {
+        Map<String, Double> effectiveness = taskService.calculateEffectivenessBySprint(sprintId);
+        return new ResponseEntity<>(effectiveness, HttpStatus.OK);
     }
 }

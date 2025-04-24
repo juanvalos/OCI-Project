@@ -56,7 +56,6 @@ const DashboardUser = () => {
       </div>
 
       <div className="dashboard-content">
-        {/* Sección de Perfil */}
         {user && (
           <div className="profile-container">
             <FaUserCircle className="profile-icon" />
@@ -91,10 +90,13 @@ const DashboardUser = () => {
 
         <div className="productivity-section">
           <h2 className="productivity-title">📊 Productividad</h2>
-          <button className="productivity-button" onClick={() => navigate("/globalProductivity")}>
-            <FaChartBar className="icon" /> Productividad Global
+          <button className="productivity-button" onClick={() => navigate("/sprintEffectiveness")}>
+            <FaChartBar className="icon" /> Efectividad por sprint
           </button>
-          <button className="productivity-button" onClick={() => navigate("/sprintProductivity")}>
+          <button
+            className="productivity-button"
+            onClick={() => navigate("/sprintProductivity")}
+          >
             <FaChartBar className="icon" /> Productividad por Sprint
           </button>
         </div>
