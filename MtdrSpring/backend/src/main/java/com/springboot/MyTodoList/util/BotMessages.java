@@ -4,7 +4,7 @@ public enum BotMessages {
 
     MAIN_MENU("Welcome! Choose an option:"),
     VIEW_SPRINTS_MESSAGE("Here are the sprints:"),
-    VIEW_TASKS_MESSAGE("Here are the tasks:"),
+    VIEW_TASKS_MESSAGE("Tasks del sprint:"),
     SELECT_SPRINT("Please type the name of the sprint you want to view tasks for. Use the next format -> Sprint: <sprint_name>"),
     SELECT_SPRINT_FOR_TASK("Please type the name of the sprint to add a task to. Use the next format ->  Sprint name: <sprint_name>"),
     ENTER_TASK_DETAILS("Please enter the task details in the next format -> Task: [Name], [Description], [Difficulty (Alta/Media/Baja)], [Priority (Alta/Media/Baja)], [State (Sin empezar/En proceso/Terminada)], [Estimated hours], [Actual hours (o 0)], [Due Date (YYYY-MM-DD)]."),
@@ -18,7 +18,9 @@ public enum BotMessages {
     INVALID_TASK_DETAILS("The task details are invalid. Please use the next format -> New task: next format -> Task: [Name], [Description], [Difficulty (Alta/Media/Baja)], [Priority (Alta/Media/Baja)], [State (Sin empezar/En proceso/Terminada)], [Horas estimadas], [Horas reales (o 0)], [Fecha límite (YYYY-MM-DD)]."),
     USER_NOT_FOUND("The specified user was not found. Please select a valid user."),
     NO_SPRINT_OR_USER_SELECTED("No valid sprint or user has been selected. Please select both before creating the task."),
-    BOT_REGISTERED_STARTED("Bot registered and started successfully!");
+    BOT_REGISTERED_STARTED("Bot registered and started successfully!"),
+    TEAM_ANALYSIS("Selecciona un a sprint to analize it. Use the next format -> Sprint analysis: [Sprint's name]"),
+    SELECT_ANALYSIS_TYPE("Select a type of analysis:");
 
     private final String message;
 
