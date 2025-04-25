@@ -1,5 +1,6 @@
-//npx jest src/Tests/03ListaTareas.test.jsx -- comando para correr este test específico
-//para correr todos el comsando es npm run test:frontend
+/**Lista de tareas completadas por Sprint. 
+ * Probar que la información mínima esté presente en el ticket: 
+ * Nombre Tarea, Nombre de desarrollador, horas estimadas, horas reales. */
 
 import React from "react";
 import { render, screen } from "@testing-library/react";

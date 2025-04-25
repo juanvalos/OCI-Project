@@ -1,6 +1,6 @@
-//Visualización en tiempo real de tareas asignadas a cada usuario 
-//npx jest src/Tests/01VisualizacionTareas.test.jsx -- comando para correr este test específico
-//para correr todos el comsando es npm run test:frontend
+/*Visualización en tiempo real de tareas asignadas a cada usuario 
+npx jest src/Tests/01VisualizacionTareas.test.jsx -- comando para correr este test específico
+para correr todos el comsando es npm run test:frontend*/
 
 
 import React from "react";

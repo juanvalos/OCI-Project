@@ -1,6 +1,6 @@
-//Cambio de estado de datos de tareas (nombre, dev, storyPoints, horas estimadas)
-//npx jest src/Tests/02EditarTareas.test.jsx -- comando para correr este test específico
-//para correr todos el comsando es npm run test:frontend
+/*Cambio de estado de datos de tareas (nombre, dev, storyPoints, horas estimadas)
+npx jest src/Tests/02EditarTareas.test.jsx -- comando para correr este test específico
+para correr todos el comsando es npm run test:frontend*/
 
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
