@@ -66,7 +66,12 @@ const SprintDetails = () => {
             <h2>{sprint.name}</h2>
             <p><strong>Descripción:</strong> {sprint.description}</p>
             <p><strong>Proyecto:</strong> {sprint.project}</p>
-            <p><strong>Fecha de Entrega:</strong> {new Date(sprint.dueDate).toLocaleDateString()}</p>
+            <p>
+              <strong>Fecha de Entrega:</strong>{" "}
+              {sprint.dueDate
+                ? new Date(sprint.dueDate).toLocaleDateString()
+                : "No especificada"}
+            </p>
           </div>
         )}
 

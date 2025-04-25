@@ -1,9 +1,13 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "../Assets/CreateSprint.css";
 
 const CreateSprint = ({ onClose, onCreate }) => {
-  const [newSprint, setNewSprint] = useState({ name: "", description: "", project: "Telegram-Bot-Oracle" });
+  const [newSprint, setNewSprint] = useState({
+    name: "",
+    description: "",
+    project: "Telegram-Bot-Oracle",
+    dueDate: "",
+  });
 
   const handleCreateSprint = async () => {
     try {
@@ -12,7 +16,7 @@ const CreateSprint = ({ onClose, onCreate }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newSprint),
       });
-  
+
       if (response.ok) {
         alert("Sprint creado con éxito.");
         onCreate();
@@ -24,7 +28,6 @@ const CreateSprint = ({ onClose, onCreate }) => {
       alert("No se pudo crear el Sprint.");
     }
   };
-  
 
   return (
     <div className="modal-overlay">
@@ -40,7 +43,9 @@ const CreateSprint = ({ onClose, onCreate }) => {
           type="text"
           placeholder="Descripción"
           value={newSprint.description}
-          onChange={(e) => setNewSprint({ ...newSprint, description: e.target.value })}
+          onChange={(e) =>
+            setNewSprint({ ...newSprint, description: e.target.value })
+          }
         />
         <input
           type="text"
@@ -55,13 +60,19 @@ const CreateSprint = ({ onClose, onCreate }) => {
           name="dueDate"
           placeholder="mm / dd / aaaa"
           value={newSprint.dueDate}
-          onChange={handleCreateSprint}
+          onChange={(e) =>
+            setNewSprint({ ...newSprint, dueDate: e.target.value })
+          }
         />
 
         {/* Contenedor de botones alineados */}
         <div className="buttons-container">
-          <button className="close-button" onClick={onClose}>Cancelar</button>
-          <button className="close-button" onClick={handleCreateSprint}>Crear Sprint</button>
+          <button className="close-button" onClick={onClose}>
+            Cancelar
+          </button>
+          <button className="close-button" onClick={handleCreateSprint}>
+            Crear Sprint
+          </button>
         </div>
       </div>
     </div>
