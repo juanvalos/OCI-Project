@@ -1,4 +1,5 @@
-
+//npx jest src/Tests/03ListaTareas.test.jsx -- comando para correr este test específico
+//para correr todos el comsando es npm run test:frontend
 
 import React from "react";
 import { render, screen } from "@testing-library/react";

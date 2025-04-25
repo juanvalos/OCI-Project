@@ -12,7 +12,8 @@
     "start": "react-scripts start",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "test:frontend": "jest --config jest.config.cjs"
   },
   "dependencies": {
     "@emotion/react": "^11.9.0",
@@ -45,14 +46,12 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^27.5.1",
     "vite": "^6.3.1"
   },
   "eslintConfig": {
     "extends": "react-app"
-  },
-  "jest": {
-    "verbose": true
   },
   "browserslist": [
     "last 5 versions"
