@@ -89,7 +89,7 @@ const DashboardUser = () => {
         </div>
 
         <div className="productivity-section">
-          <h2 className="productivity-title">📊 Productividad</h2>
+          <h2 className="productivity-title">📊 KPI's</h2>
           <button className="productivity-button" onClick={() => navigate("/sprintEffectiveness")}>
             <FaChartBar className="icon" /> Efectividad por sprint
           </button>
@@ -98,6 +98,15 @@ const DashboardUser = () => {
             onClick={() => navigate("/sprintProductivity")}
           >
             <FaChartBar className="icon" /> Productividad por Sprint
+          </button>
+          <button
+            className="productivity-button" onClick={() => navigate("/totalHours")}> Hrs trabajadas por sprint
+          </button>
+          <button
+            className="productivity-button" onClick={() => navigate("/userHoursPerSprint")}> Hrs trabajadas por dev
+          </button>
+          <button
+            className="productivity-button" onClick={() => navigate("/userCompletedTasks")}> Task completadas por dev
           </button>
         </div>
       </div>

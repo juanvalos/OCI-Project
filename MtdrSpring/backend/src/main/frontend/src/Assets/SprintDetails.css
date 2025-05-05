@@ -81,7 +81,7 @@ html, body {
 
 /* Información del Sprint */
 .sprint-info {
-    flex: 1;
+    flex: 1.2;
     background: #f8f9fa;
     padding: 20px;
     border-radius: 10px;

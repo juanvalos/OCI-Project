@@ -9,7 +9,7 @@ const ManageTask = ({ onClose }) => {
   useEffect(() => {
     const fetchTaskDetails = async () => {
       try {
-        const response = await fetch(`/taskDetails/${taskId}`);
+        const response = await fetch(`/tasks/details/${taskId}`);
         if (!response.ok) throw new Error("Error obteniendo los detalles de la tarea");
         const data = await response.json();
         setTask(data);
@@ -50,6 +50,7 @@ const ManageTask = ({ onClose }) => {
             <p><strong>Horas estimadas:</strong> {task.expectedHours}</p>
             <p><strong>Horas reales:</strong> {task.actualHours}</p>
             <p><strong>Fecha de Entrega:</strong> {task.dueDate ? new Date(task.dueDate).toLocaleDateString() : "No especificada"}</p>
+            <p><strong>Usuario Asignado:</strong> {task.assignedUserName}</p>
             
             <div className="buttons-container">
               <button className="close-button" onClick={onClose}>Cancelar</button>

@@ -1,6 +1,7 @@
 package com.springboot.MyTodoList.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,5 +59,23 @@ public class SprintController {
         Optional<Sprint> sprint = sprintService.findSprintByName(name);
         return sprint.map(value -> new ResponseEntity<>(value.getId(), HttpStatus.OK))
                      .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping(value = "/sprints/totalHours")
+    public ResponseEntity<Map<String, Integer>> getTotalHoursWorkedPerSprint() {
+        Map<String, Integer> totalHoursPerSprint = sprintService.getTotalHoursWorkedPerSprint();
+        return new ResponseEntity<>(totalHoursPerSprint, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/sprints/user-hours")
+    public ResponseEntity<List<Map<String, Object>>> getTotalHoursPerUserPerSprint() {
+        List<Map<String, Object>> result = sprintService.getTotalHoursPerUserPerSprint();
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/sprints/completed-tasks")
+    public ResponseEntity<List<Map<String, Object>>> getCompletedTasksPerUserPerSprint() {
+        List<Map<String, Object>> result = sprintService.getCompletedTasksPerUserPerSprint();
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

@@ -8,6 +8,9 @@ import DashboardAdmin from './Components/DashboardAdmin';
 import SprintsAdmin from './Components/SprintsAdmin';
 import SprintProductivity from "./Components/SprintProductivity";
 import SprintEffectiveness from "./Components/SprintEffectiveness";
+import TotalHours from "./Components/totalHours";
+import UserHoursPerSprint from './Components/UserHoursPerSprint';
+import UserCompletedTasks from './Components/UserCompletedTasks';
 
 import { UserProvider } from './Contexts/UserContext';
 import { SprintProvider } from './Contexts/SprintContext';
@@ -27,6 +30,9 @@ const App = () => {
                             <Route path="/sprintsAdmin" element={<SprintsAdmin />} />
                             <Route path="/sprintProductivity" element={<SprintProductivity />} />
                             <Route path="/sprintEffectiveness" element={<SprintEffectiveness />} />
+                            <Route path="/totalHours" element={<TotalHours />} />
+                            <Route path="/userHoursPerSprint" element={<UserHoursPerSprint />} />
+                            <Route path="/userCompletedTasks" element={<UserCompletedTasks />} />
                         </Routes>
                     </SprintProvider>
                 </UserProvider>
