@@ -37,7 +37,7 @@
     test('seleccionar un sprint carga la efectividad', async () => {
       fetch
         .mockResolvedValueOnce({
-          json: async () => [{ id: 1, name: 'Sprint 1' }],
+          json: async () => [{ id: 2, name: 'Sprint 2' }],
         })
         .mockResolvedValueOnce({
           json: async () => ({'Diego Estrada': 85.5 }),

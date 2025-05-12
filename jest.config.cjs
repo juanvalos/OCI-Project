@@ -8,6 +8,11 @@ module.exports = {
     "^.+\\.[jt]sx?$": "babel-jest"
   },
 
+  transformIgnorePatterns: [
+    "/node_modules/(?!msw)/" 
+  ],
+  
+
   // Ignorar imports de CSS, SCSS, etc.
   moduleNameMapper: {
     "\\.(css|less|scss|sass)$": "identity-obj-proxy"
