@@ -50,3 +50,5 @@ frontend/yarn-debug.log*
 frontend/yarn-error.log*
 
 MtdrSpring/backend/run-backend.bat
+
+node_modules/
