@@ -65,14 +65,14 @@ public class SprintService {
         return Optional.ofNullable(sprintContext.get(chatId));
     }
 
-    public Map<String, Integer> getTotalHoursWorkedPerSprint() {
+    public Map<String, Float> getTotalHoursWorkedPerSprint() {
         List<Sprint> sprints = sprintRepository.findAll();
-        Map<String, Integer> totalHoursPerSprint = new HashMap<>();
+        Map<String, Float> totalHoursPerSprint = new HashMap<>();
 
         for (Sprint sprint : sprints) {
             List<Task> tasks = taskService.getTasksBySprintId(sprint.getId());
-            int totalHours = tasks.stream()
-                                  .mapToInt(task -> task.getActualHours() != null ? task.getActualHours() : 0)
+            Float totalHours = (float) tasks.stream()
+                                  .mapToDouble(task -> task.getActualHours() != null ? task.getActualHours() : 0)
                                   .sum();
             totalHoursPerSprint.put(sprint.getName(), totalHours);
         }
@@ -89,14 +89,14 @@ public class SprintService {
             sprintData.put("name", sprint.getName());
 
             List<Task> tasks = taskRepository.findBySprintId(sprint.getId());
-            Map<String, Integer> userHours = new HashMap<>();
+            Map<String, Float> userHours = new HashMap<>();
 
             for (Task task : tasks) {
                 String userName = task.getoracleUserId() != 0 
                     ? userService.getUserNameById(task.getoracleUserId()) 
                     : "No asignado";
 
-                userHours.put(userName, userHours.getOrDefault(userName, 0) + 
+                userHours.put(userName, userHours.getOrDefault(userName, 0.0f) + 
                     (task.getActualHours() != null ? task.getActualHours() : 0));
             }
 
