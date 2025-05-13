@@ -62,8 +62,8 @@ public class SprintController {
     }
 
     @GetMapping(value = "/sprints/totalHours")
-    public ResponseEntity<Map<String, Integer>> getTotalHoursWorkedPerSprint() {
-        Map<String, Integer> totalHoursPerSprint = sprintService.getTotalHoursWorkedPerSprint();
+    public ResponseEntity<Map<String, Float>> getTotalHoursWorkedPerSprint() {
+        Map<String, Float> totalHoursPerSprint = sprintService.getTotalHoursWorkedPerSprint();
         return new ResponseEntity<>(totalHoursPerSprint, HttpStatus.OK);
     }
 

@@ -72,7 +72,7 @@ public class TaskController {
     }
 
     @PutMapping(value = "/tasks/hours/{id}")
-    public ResponseEntity<Task> updateTaskHours(@PathVariable int id, @RequestParam Integer actualHours) {
+    public ResponseEntity<Task> updateTaskHours(@PathVariable int id, @RequestParam Float actualHours) {
         Task updatedTask = taskService.updateTaskHours(id, actualHours);
         if (updatedTask != null) {
             return new ResponseEntity<>(updatedTask, HttpStatus.OK);

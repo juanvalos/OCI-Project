@@ -227,8 +227,8 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
             String difficulty = details[2].trim();
             String priority = details[3].trim();
             String state = details[4].trim();
-            int expectedHours = Integer.parseInt(details[5].trim());
-            int actualHours = Integer.parseInt(details[6].trim());
+            Float expectedHours = Float.parseFloat(details[5].trim());
+            Float actualHours = Float.parseFloat(details[6].trim());
             java.sql.Date dueDate = java.sql.Date.valueOf(details[7].trim());
 
             Optional<Integer> sprintId = sprintService.getCurrentSprintId(chatId);

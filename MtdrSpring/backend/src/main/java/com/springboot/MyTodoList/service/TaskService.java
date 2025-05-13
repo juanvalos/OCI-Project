@@ -59,7 +59,7 @@ public class TaskService {
         }
     }
 
-    public Task updateTaskHours(int id, Integer actualHours) {
+    public Task updateTaskHours(int id, Float actualHours) {
         Optional<Task> taskOptional = taskRepository.findById(id);
         if (taskOptional.isPresent()) {
             Task task = taskOptional.get();

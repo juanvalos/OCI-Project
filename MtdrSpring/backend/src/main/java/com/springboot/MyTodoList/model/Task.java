@@ -39,10 +39,10 @@ public class Task {
     private int oracleUserId;
 
     @Column(name = "EXPECTED_HOURS")
-    private Integer expectedHours; // Changed from int to Integer
+    private Float expectedHours; 
 
     @Column(name = "ACTUAL_HOURS")
-    private Integer actualHours; // Changed from int to Integer
+    private Float actualHours;
 
     @Column(name = "DUE_DATE")
     private Date dueDate;
@@ -51,7 +51,7 @@ public class Task {
     public Task() {
     }
 
-    public Task(String name, String description, String difficulty, String priority, String state, int sprintId, int oracleUserId, Integer expectedHours, Integer actualHours, Date dueDate) {
+    public Task(String name, String description, String difficulty, String priority, String state, int sprintId, int oracleUserId, Float expectedHours, Float actualHours, Date dueDate) {
         this.name = name;
         this.description = description;
         this.difficulty = difficulty;
@@ -128,19 +128,19 @@ public class Task {
         this.oracleUserId = oracleUserId;
     }
 
-    public Integer getExpectedHours() {
+    public Float getExpectedHours() {
         return expectedHours;
     }
 
-    public void setExpectedHours(Integer expectedHours) {
+    public void setExpectedHours(Float expectedHours) {
         this.expectedHours = expectedHours;
     }
 
-    public Integer getActualHours() {
+    public Float getActualHours() {
         return actualHours;
     }
 
-    public void setActualHours(Integer actualHours) {
+    public void setActualHours(Float actualHours) {
         this.actualHours = actualHours;
     }
 
