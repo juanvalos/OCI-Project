@@ -1,5 +1,6 @@
 package com.springboot.MyTodoList.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.MyTodoList.model.Task;
+import com.springboot.MyTodoList.service.AuthService;
 import com.springboot.MyTodoList.service.TaskService;
 
 @RestController
@@ -24,6 +26,9 @@ public class TaskController {
 
     @Autowired
     private TaskService taskService;
+
+    @Autowired
+    private AuthService userService;
 
     @GetMapping(value = "/tasksbySprintId")
     public ResponseEntity<List<Task>> getTasksBySprintId(@RequestParam int sprintId) {
@@ -99,7 +104,7 @@ public class TaskController {
         List<Task> tasks = taskService.getAllTasks();
         return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
-
+    
     @GetMapping(value = "/sprint/{sprintId}/productivity")
     public ResponseEntity<Map<String, Double>> getWeightedProductivityBySprint(@PathVariable int sprintId) {
         Map<String, Double> productivity = taskService.calculateWeightedProductivityBySprint(sprintId);
@@ -111,4 +116,31 @@ public class TaskController {
         Map<String, Double> effectiveness = taskService.calculateEffectivenessBySprint(sprintId);
         return new ResponseEntity<>(effectiveness, HttpStatus.OK);
     }
+
+    @GetMapping(value = "/tasks/details/{id}")
+    public ResponseEntity<Map<String, Object>> getTaskDetailsWithAssignedUser(@PathVariable int id) {
+        Optional<Task> taskOptional = taskService.getTaskById(id);
+
+        if (taskOptional.isPresent()) {
+            Task task = taskOptional.get();
+            Map<String, Object> response = new HashMap<>();
+            response.put("id", task.getId());
+            response.put("name", task.getName());
+            response.put("description", task.getDescription());
+            response.put("difficulty", task.getDifficulty());
+            response.put("priority", task.getPriority());
+            response.put("state", task.getState());
+            response.put("sprintId", task.getSprintId());
+            response.put("expectedHours", task.getExpectedHours());
+            response.put("actualHours", task.getActualHours());
+            response.put("dueDate", task.getDueDate());
+            response.put("assignedUserName", task.getoracleUserId() != 0 
+                ? userService.getUserNameById(task.getoracleUserId()) 
+                : "No asignado");
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+}
 }

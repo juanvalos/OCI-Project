@@ -101,28 +101,34 @@ const SprintsAdmin = () => {
               <FiTrash2 className="delete-icon" />
                Eliminar Sprint
             </button>
+            <button className="close-button">
+               Generar Reporte
+            </button>
           </div>
         )}
 
         {/* Sección de tareas */}
-        <div className="tasks-section">
-          <h2 className="tasks-title">📝 Tareas del Sprint</h2>
-          <div className="tasks-container">
-            {tasks.length > 0 ? (
-              tasks.map((task) => (
-                <button key={task.id} className="task-card" onClick={() => handleTaskClick(task.id)}>
-                  <FaTasks className="task-icon" />
-                  <h3>{task.name}</h3>
-                  <p><strong>Estado:</strong> {task.state}</p>
-                </button>
-              ))
-            ) : (
-              <p className="no-tasks">No hay tareas para este sprint.</p>
-            )}
+        <div className="tasks-sectionn">
+          <div className="tasks-section">
+            <h2 className="tasks-title">📝 Tareas del Sprint</h2>
+            <div className="tasks-container">
+              {tasks.length > 0 ? (
+                tasks.map((task) => (
+                  <button key={task.id} className="task-card" onClick={() => handleTaskClick(task.id)}>
+                    <FaTasks className="task-icon" />
+                    <h3>{task.name}</h3>
+                    <p><strong>Estado:</strong> {task.state}</p>
+                  </button>
+                ))
+              ) : (
+                <p className="no-tasks">No hay tareas para este sprint.</p>
+              )}
+            </div>  
           </div>
-          <button className="close-button" onClick={() => setShowCreateTask(true)}> + Agregar Task</button>
+            <button className="close-button" onClick={() => setShowCreateTask(true)}> + Agregar Task</button>
+          <div>
         </div>
-      <div>
+        
             
     </div>
     
