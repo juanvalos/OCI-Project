@@ -167,7 +167,8 @@ CREATE TABLE TODOUSER.tasks (
     priority VARCHAR2(50),
     state VARCHAR2(50),
     sprintId NUMBER,
-    oracle_userId NUMBER
+    oracle_userId NUMBER,
+
 );
 insert into TODOUSER.todoitem  (description, done) values ('Manual item insert', 0);
 
@@ -179,25 +180,6 @@ VALUES ('juanvaloss', 'password456', 'Juan Avalos', 'A01276329@tec.mx', 'Backend
 
 INSERT INTO TODOUSER.oracle_user (username, password, name, mail, role, modality, permits)
 VALUES ('marielaQuintanar', 'password123', 'Mariela Quintanar', 'A01642675@tec.mx', 'Frontend Developer', 'Part-Time', 0);
-
-INSERT INTO TODOUSER.sprints (name, description, project) 
-VALUES ('Sprint 1', 'Desarrollo de login', 'Telegram-Bot-Oracle');
-
-INSERT INTO TODOUSER.sprints (name, description, project) 
-VALUES ('Sprint 2', 'Implementación de API', 'Telegram-Bot-Oracle');
-
--- Insertar tareas de prueba en TODOUSER
-INSERT INTO TODOUSER.tasks (name, description, difficulty, priority, state, sprintId, oracle_userId)
-VALUES ('Certificación', 'Obtener certificación OCI fundations.', 'Media', 'Baja','Sin empezar', 1, 3);
-
-INSERT INTO TODOUSER.tasks (name, description, difficulty, priority, state, sprintId, oracle_userId)
-VALUES ('Conectar base de datos', 'Configurar conexión con Oracle DB', 'Alta', 'Alta', 'Terminada', 1, 2); 
-
-INSERT INTO TODOUSER.tasks (name, description, difficulty, priority, state, sprintId, oracle_userId)
-VALUES ('Rutas login', 'Crear rutas para autenticarse usando Springboot', 'Media', 'Alta','En progreso', 2, 2);
-
-INSERT INTO TODOUSER.tasks (name, description, difficulty, priority, state, sprintId, oracle_userId)
-VALUES ('Crear dashboard para OracleAdmin', 'Crear dashboar suando react y CSS', 'Media', 'Alta', 'En progreso', 1, 3); 
 
 commit;
 !
