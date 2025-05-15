@@ -8,7 +8,7 @@ import DashboardAdmin from './Components/DashboardAdmin';
 import SprintsAdmin from './Components/SprintsAdmin';
 import SprintProductivity from "./Components/SprintProductivity";
 import SprintEffectiveness from "./Components/SprintEffectiveness";
-import TotalHours from "./Components/totalHours";
+import TotalHours from "./Components/TotalHours";
 import UserHoursPerSprint from './Components/UserHoursPerSprint';
 import UserCompletedTasks from './Components/UserCompletedTasks';
 
