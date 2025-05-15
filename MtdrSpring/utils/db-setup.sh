@@ -156,7 +156,8 @@ CREATE TABLE TODOUSER.sprints (
     id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name VARCHAR2(100) NOT NULL,
     description VARCHAR2(255) NOT NULL,
-    project VARCHAR2(100) NOT NULL
+    project VARCHAR2(100) NOT NULL,
+    DUE_DATE DATE
 );
 
 CREATE TABLE TODOUSER.tasks (
@@ -166,20 +167,33 @@ CREATE TABLE TODOUSER.tasks (
     difficulty VARCHAR2(50),
     priority VARCHAR2(50),
     state VARCHAR2(50),
+    EXPECTED_HOURS NUMBER,
+    ACTUAL_HOURS NUMBER,
+    DUE_DATE DATE,
     sprintId NUMBER,
-    oracle_userId NUMBER,
+    oracle_userId NUMBER
 
 );
 insert into TODOUSER.todoitem  (description, done) values ('Manual item insert', 0);
 
 INSERT INTO TODOUSER.oracle_user (username, password, name, mail, role, modality, permits)
-VALUES ('roxanaAranda', 'password123', 'Roxana Aranda', 'A0163911@tec.mx', 'Project Manager', 'Full-Time', 1);
+VALUES ('roxanaAranda', 'password123', 'Roxana Aranda', 'roxarandagr@gmail.com', 'Project Manager', 'Full-Time', 1);
 
 INSERT INTO TODOUSER.oracle_user (username, password, name, mail, role, modality, permits)
-VALUES ('juanvaloss', 'password456', 'Juan Avalos', 'A01276329@tec.mx', 'Backend Developer', 'Full-Time', 0);
+VALUES ('juanvaloss', '123', 'Juan Avalos', 'juanavalosmayorga@gmail.com', 'Backend Developer', 'Full-Time', 0);
 
 INSERT INTO TODOUSER.oracle_user (username, password, name, mail, role, modality, permits)
-VALUES ('marielaQuintanar', 'password123', 'Mariela Quintanar', 'A01642675@tec.mx', 'Frontend Developer', 'Part-Time', 0);
+VALUES ('marielaQuintanar', 'password123', 'Mariela Quintanar', 'marielaqntrr@gmail.com', 'Frontend Developer', 'Part-Time', 0);
+
+INSERT INTO TODOUSER.oracle_user (username, password, name, mail, role, modality, permits)
+VALUES ('karimeMunoz', 'password123', 'Karime Munoz', 'karimemunoz4@gmail.com', 'Frontend Developer', 'Part-Time', 0);
+
+INSERT INTO TODOUSER.oracle_user (username, password, name, mail, role, modality, permits)
+VALUES ('diegoEstrada', 'password123', 'Diego Estrada', 'Diegoalbertoestrada1@gmail.com', 'DB Administrator', 'Full-Time', 0);
+
+INSERT INTO TODOUSER.oracle_user (username, password, name, mail, role, modality, permits)
+VALUES ('dhaliTejeda', 'password123', 'Dhali Tejeda', 'carlosdhali@hotmail.com', 'Tester', 'Full-Time', 0);
+
 
 commit;
 !
