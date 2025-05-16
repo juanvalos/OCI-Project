@@ -113,7 +113,6 @@ public class CreateTaskTest {
         // Use the actual BotMessages class here
         assertEquals(BotMessages.TASK_CREATED_SUCCESSFULLY.getMessage(), sentMessage.getText());
     }
-    
 
     @Test
     void onUpdateReceived_handleNewTask_missingContext() throws TelegramApiException {
