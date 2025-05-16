@@ -172,8 +172,9 @@ CREATE TABLE TODOUSER.tasks (
     DUE_DATE DATE,
     sprintId NUMBER,
     oracle_userId NUMBER
-
 );
+
+
 insert into TODOUSER.todoitem  (description, done) values ('Manual item insert', 0);
 
 INSERT INTO TODOUSER.oracle_user (username, password, name, mail, role, modality, permits)
