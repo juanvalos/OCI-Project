@@ -52,7 +52,7 @@ const Login = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <button className = "button-login" type="submit">Gay si no jala</button>
+                    <button className = "button-login" type="submit">Prueba 2</button>
                 </form>
             </div>
         </div>
