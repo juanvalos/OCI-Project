@@ -29,6 +29,7 @@ steps:
 artifacts:
   files: []
 
+
   outputArtifacts:
     - name: SpringbootDockerImage
       type: DOCKER_IMAGE
