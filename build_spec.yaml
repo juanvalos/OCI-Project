@@ -14,15 +14,14 @@ steps:
   - type: Command
     name: Undeploy
     command: |
-      cd backend
-      source undeploy.sh
+      cd MtdrSpring/backend && source undeploy.sh
 
-  - type: Command
+- type: Command
     name: Build
     command: |
-      source build.sh
+      cd MtdrSpring/backend && source build.sh
 
-  - type: Command
+- type: Command
     name: Deploy
     command: |
-      source deploy.sh
+      cd MtdrSpring/backend && source deploy.sh
