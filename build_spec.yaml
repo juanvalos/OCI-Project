@@ -3,12 +3,6 @@ component: build
 
 steps:
   - type: Command
-    name: Make .sh executable
-    command: |
-      cd MtdrSpring
-      find . -type f -name "*.sh" -exec chmod +x {} \;
-
-  - type: Command
     name: docker login
     command: |
       echo "y{YOWwi:N5C]IDm7H6VI" | docker login -u "axe7rjmbgq9x/a00344820@tec.mx" --password-stdin mx-queretaro-1.ocir.io
@@ -16,15 +10,16 @@ steps:
   - type: Command
     name: Undeploy
     command: |
+      find . -type f -name "*.sh" -exec chmod +x {} \;
+      cd MtdrSpring
       cd backend
       source undeploy.sh
 
   - type: Command
     name: Build
     command: |
+      find . -type f -name "*.sh" -exec chmod +x {} \;
+      cd MtdrSpring
+      cd backend
       source build.sh
-
-  - type: Command
-    name: Deploy
-    command: |
       source deploy.sh
