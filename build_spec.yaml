@@ -27,6 +27,8 @@ steps:
       cd MtdrSpring/backend && source deploy.sh
 
 artifacts:
+  files: []
+  
   outputArtifacts:
     - name: SpringbootDockerImage
       type: DOCKER_IMAGE
@@ -35,4 +37,3 @@ artifacts:
     - name: DeploymentYaml
       type: GENERIC_ARTIFACT
       location: ./MtdrSpring/backend/todolistapp-springboot-*.yaml
-
