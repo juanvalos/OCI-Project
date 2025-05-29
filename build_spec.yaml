@@ -1,4 +1,5 @@
 version: 0.1
+component: build
 
 steps:
   - type: Command
@@ -26,14 +27,3 @@ steps:
     name: Deploy
     command: |
       cd MtdrSpring/backend && source deploy.sh
-
-artifacts:
-  files: []
-  outputArtifacts:
-    - name: SpringbootDockerImage
-      type: DOCKER_IMAGE
-      location: mx-queretaro-1.ocir.io/axe7rjmbgq9x/todolistapp-springboot:0.1
-
-    - name: DeploymentYaml
-      type: GENERIC_ARTIFACT
-      location: MtdrSpring/backend/todolistapp-springboot-*.yaml
