@@ -5,7 +5,7 @@ export IMAGE_VERSION=0.1
 
 
 if [ -z "$DOCKER_REGISTRY" ]; then
-    export DOCKER_REGISTRY=DOCKER_REGISTRY=mx-queretaro-1.ocir.io/axe7rjmbgq9x/reacttodo/c0wwp
+    export DOCKER_REGISTRY=$(state_get DOCKER_REGISTRY)
     echo "DOCKER_REGISTRY set."
 fi
 if [ -z "$DOCKER_REGISTRY" ]; then
