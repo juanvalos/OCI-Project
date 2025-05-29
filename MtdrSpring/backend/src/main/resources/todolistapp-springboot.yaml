@@ -60,7 +60,11 @@ spec:
             - name: OCI_REGION
               value: "%OCI_REGION%"
             - name: dbpassword
-              value: "Juanito12345"
+              valueFrom:
+                secretKeyRef:
+                  name: dbuser
+                  key: dbpassword
+                  optional: true
             - name: ui_username
               value: "%UI_USERNAME%"
             - name: ui_password
