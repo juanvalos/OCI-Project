@@ -9,7 +9,7 @@ steps:
   - type: Command
     name: docker login
     command: |
-      echo y{YOWwi:N5C]IDm7H6VI | docker login -u "axe7rjmbgq9x/a00344820@tec.mx" --password-stdin mx-queretaro-1.ocir.io
+      echo "y{YOWwi:N5C]IDm7H6VI" | docker login -u "axe7rjmbgq9x/a00344820@tec.mx" --password-stdin mx-queretaro-1.ocir.io
 
   - type: Command
     name: Undeploy
@@ -28,7 +28,7 @@ steps:
 
 artifacts:
   files: []
-  
+
   outputArtifacts:
     - name: SpringbootDockerImage
       type: DOCKER_IMAGE
@@ -36,4 +36,4 @@ artifacts:
 
     - name: DeploymentYaml
       type: GENERIC_ARTIFACT
-      location: ./MtdrSpring/backend/todolistapp-springboot-*.yaml
+      location: MtdrSpring/backend/todolistapp-springboot-*.yaml
