@@ -1,4 +1,9 @@
 version: 0.1
+
+components:
+  runtime:
+    type: docker
+
 steps:
   - type: Command
     name: Make .sh executable
@@ -26,15 +31,11 @@ steps:
     command: |
       cd MtdrSpring/backend && source deploy.sh
 
-artifacts:
-  files: []
+outputArtifacts:
+  - name: SpringbootDockerImage
+    type: DOCKER_IMAGE
+    location: mx-queretaro-1.ocir.io/axe7rjmbgq9x/todolistapp-springboot:0.1
 
-
-  outputArtifacts:
-    - name: SpringbootDockerImage
-      type: DOCKER_IMAGE
-      location: mx-queretaro-1.ocir.io/your-namespace/todolistapp-springboot:0.1
-
-    - name: DeploymentYaml
-      type: GENERIC_ARTIFACT
-      location: MtdrSpring/backend/todolistapp-springboot-*.yaml
+  - name: DeploymentYaml
+    type: GENERIC_ARTIFACT
+    location: MtdrSpring/backend/todolistapp-springboot-*.yaml
