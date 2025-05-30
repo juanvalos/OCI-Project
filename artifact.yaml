@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todolistapp-springboot-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todolistapp-springboot
+  template:
+    metadata:
+      labels:
+        app: todolistapp-springboot
+        version: v1
+    spec:
+      containers:
+        - name: todolistapp-springboot
+          image: mx-queretaro-1.ocir.io/ax29jagffjqz/reacttodo/bh2ij/todolistapp-springboot:${BUILDRUN_HASH}
+          imagePullPolicy: Always
+          env:
+            - name: db_user
+              value: "TODOUSER"
+            - name: db_url
+              value: "jdbc:oracle:thin:@reacttodobh2ij_medium?TNS_ADMIN=/mtdrworkshop/creds"
+            - name: OCI_REGION
+              value: "mx-queretaro-1"
+            - name: dbpassword
+              valueFrom:
+                secretKeyRef:
+                  name: dbuser
+                  key: dbpassword
+                  optional: true
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: creds
+              mountPath: /mtdrworkshop/creds
+      restartPolicy: Always
+      volumes:
+        - name: creds
+          secret:
+            secretName: db-wallet-secret
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app: todolistapp-springboot
