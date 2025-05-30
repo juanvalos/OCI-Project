@@ -27,6 +27,12 @@ steps:
       export BUILDRUN_HASH=`echo ${OCI_BUILD_RUN_ID} | rev | cut -c 1-7`
       echo "BUILDRUN_HASH: " $BUILDRUN_HASH
   - type: Command
+    name: Build Java Project
+    command: |
+      cd MtdrSpring/backend
+      ./mvnw clean package -DskipTests
+
+  - type: Command
     name: Build & Push multi-stage (no cache, pull base + prev image)
     command: |
       cd MtdrSpring/backend
