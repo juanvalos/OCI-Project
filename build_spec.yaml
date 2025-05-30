@@ -6,8 +6,8 @@ timeoutInSeconds: 3600
 env:
   variables:
     REGISTRY: mx-queretaro-1.ocir.io
-    NAMESPACE: axe7rjmbgq9x
-    REPO: reacttodo/vvi7i/todolistapp-springboot
+    NAMESPACE: ax29jagffjqz
+    REPO: reacttodo/bh2ij/todolistapp-springboot
   exportedVariables:
     - BUILDRUN_HASH
 
