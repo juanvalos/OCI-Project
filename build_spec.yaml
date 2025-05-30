@@ -21,6 +21,11 @@ steps:
             -u "${user_ocir}" \
             --password-stdin
   - type: Command
+    name: Login to Docker Hub
+    command: |
+      echo "🔐 Haciendo login a Docker Hub..."
+      echo "${dockerhub_token}" | docker login -u "${dockerhub_user}" --password-stdin
+  - type: Command
     name: "Define unique image tag"
     timeoutInSeconds: 40
     command: |
