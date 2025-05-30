@@ -1,13 +1,13 @@
 version: 0.1
 component: build
-
-timeoutInSeconds: 3600
+timeoutInSeconds: 1800
+shell: bash
 
 env:
   variables:
-    REGISTRY: mx-queretaro-1.ocir.io
-    NAMESPACE: ax29jagffjqz
-    REPO: reacttodo/bh2ij/todolistapp-springboot
+    REGISTRY: "mx-queretaro-1.ocir.io"
+    NAMESPACE: "ax29jagffjqz"
+    REPO: "reacttodo/bh2ij/todolistapp-springboot"
   exportedVariables:
     - BUILDRUN_HASH
 
@@ -16,17 +16,15 @@ steps:
     name: Login to OCIR
     command: |
       echo "🔑 Autenticando en OCIR..."
-      echo "${auth_token_ocir}" \
-        | docker login $REGISTRY \
-            -u "${user_ocir}" \
-            --password-stdin
+      echo $OCI_AUTH_TOKEN | docker login $REGISTRY -u $OCI_USERNAME --password-stdin
+
   - type: Command
-    name: "Define unique image tag"
-    timeoutInSeconds: 40
+    name: Define unique image tag
     command: |
-      export BUILDRUN_HASH=`echo ${OCI_BUILD_RUN_ID} | rev | cut -c 1-7`
-      echo "BUILDRUN_HASH: " $BUILDRUN_HASH
-  
+      BUILDRUN_HASH=$(echo $OCI_BUILD_RUN_ID | cut -c1-7)
+      echo "BUILDRUN_HASH: $BUILDRUN_HASH"
+      export BUILDRUN_HASH
+
   - type: Command
     name: Permisos a mvnw
     command: |
@@ -40,21 +38,16 @@ steps:
       ./mvnw clean package -DskipTests
 
   - type: Command
-    name: Build & Push multi-stage (no cache, pull base + prev image)
+    name: Verificar JAR
     command: |
       cd MtdrSpring/backend
-      
-      docker pull ${REGISTRY}/${NAMESPACE}/${REPO}:${BUILDRUN_HASH} || true
+      ls -lh target/
 
-      docker build --pull --no-cache \
-        -f Dockerfile \
+  - type: Command
+    name: Build & Push Docker Image
+    command: |
+      cd MtdrSpring/backend
+      docker build \
         -t ${REGISTRY}/${NAMESPACE}/${REPO}:${BUILDRUN_HASH} \
         .
-
-      # 3) push siempre sobre 'latest'
       docker push ${REGISTRY}/${NAMESPACE}/${REPO}:${BUILDRUN_HASH}
-
-outputArtifacts:
-  - name: todolist-image
-    type: DOCKER_IMAGE
-    location: ${REGISTRY}/${NAMESPACE}/${REPO}:${BUILDRUN_HASH}
