@@ -1,14 +1,14 @@
 version: 0.1
 component: build
-timeoutInSeconds: 1800
-shell: bash
+
+timeoutInSeconds: 3600
 
 env:
   variables:
-    REGISTRY: "mx-queretaro-1.ocir.io"
-    NAMESPACE: "ax29jagffjqz"
-    REPO: "reacttodo/bh2ij/todolistapp-springboot"
-  exportedVariables:
+    REGISTRY: mx-queretaro-1.ocir.io
+    NAMESPACE: ax29jagffjqz
+    REPO: reacttodo/bh2ij/todolistapp-springboot  
+exportedVariables:
     - BUILDRUN_HASH
 
 steps:
@@ -16,38 +16,32 @@ steps:
     name: Login to OCIR
     command: |
       echo "🔑 Autenticando en OCIR..."
-      echo $OCI_AUTH_TOKEN | docker login $REGISTRY -u $OCI_USERNAME --password-stdin
-
+      echo "${auth_token_ocir}" \
+        | docker login $REGISTRY \
+            -u "${user_ocir}" \
+            --password-stdin
   - type: Command
-    name: Define unique image tag
+    name: "Define unique image tag"
+    timeoutInSeconds: 40
     command: |
-      BUILDRUN_HASH=$(echo $OCI_BUILD_RUN_ID | cut -c1-7)
-      echo "BUILDRUN_HASH: $BUILDRUN_HASH"
-      export BUILDRUN_HASH
-
+      export BUILDRUN_HASH=echo ${OCI_BUILD_RUN_ID} | rev | cut -c 1-7
+      echo "BUILDRUN_HASH: " $BUILDRUN_HASH
   - type: Command
-    name: Permisos a mvnw
-    command: |
-      cd MtdrSpring/backend
-      chmod +x mvnw
-
-  - type: Command
-    name: Build Java Project
+    name: Build & Push multi-stage (no cache, pull base + prev image)
     command: |
       cd MtdrSpring/backend
-      ./mvnw clean package -DskipTests
+      
+      docker pull ${REGISTRY}/${NAMESPACE}/${REPO}:${BUILDRUN_HASH} || true
 
-  - type: Command
-    name: Verificar JAR
-    command: |
-      cd MtdrSpring/backend
-      ls -lh target/
-
-  - type: Command
-    name: Build & Push Docker Image
-    command: |
-      cd MtdrSpring/backend
-      docker build \
+      docker build --pull --no-cache \
+        -f Dockerfile \
         -t ${REGISTRY}/${NAMESPACE}/${REPO}:${BUILDRUN_HASH} \
         .
+
+      # 3) push siempre sobre 'latest'
       docker push ${REGISTRY}/${NAMESPACE}/${REPO}:${BUILDRUN_HASH}
+
+outputArtifacts:
+  - name: todolist-image
+    type: DOCKER_IMAGE
+    location: ${REGISTRY}/${NAMESPACE}/${REPO}:${BUILDRUN_HASH}
