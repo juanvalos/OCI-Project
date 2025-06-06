@@ -1,0 +1,135 @@
+/* General */ 
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f0f2f5;
+}
+
+/* Layout grid */
+.grid-container {
+    display: grid;
+    grid-template-areas:
+        'header'
+        'main'
+        'footer-image'
+        'footer';
+    grid-template-rows: auto 1fr auto auto;
+    width: 100vw;
+    height: 100vh;
+    background-color: #f0f2f5;
+}
+
+/* Header */
+.item1 {
+    grid-area: header;
+    background-color: #312D2A;
+    display: flex;
+    align-items: center;
+    padding: 10px 40px;
+}
+
+.logo {
+    height: 40px;
+    width: auto;
+}
+
+/* Main */
+.item3 {
+    grid-area: main;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.login-form {
+    background-color: #fff;
+    padding: 50px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 95%;
+    max-width: 400px;  
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Títulos dentro de login */
+.login-form h2 {
+    margin: 0 0 10px 0;
+    font-size: 28px;
+    font-weight: bold;
+    color: #000;
+}
+
+.login-form p {
+    margin: 0 0 40px 0;
+    font-size: 22px;
+    font-weight: normal;
+    color: #312D2A;
+}
+
+/* Inputs */
+input {
+    width: 60%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    background-color: #E1E1E1;
+    box-sizing: border-box;
+    text-align: left;
+    margin: 10px 0;
+}
+
+input + input {
+    margin-top: 20px;
+}
+
+/* Botón */
+button {
+    width: 40%;
+    padding: 12px;
+    margin-top: 30px;
+    background-color: #C74634;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #A63A2A;
+}
+
+/* Footer image */
+.footer-image {
+    grid-area: footer-image;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0; 
+}
+
+.footer-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Footer */
+.item5 {
+    grid-area: footer;
+    background-color: #403937;
+    color: #fff;
+    text-align: center;
+    padding: 20px 40px;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
