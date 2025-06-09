@@ -75,3 +75,9 @@ frontend/yarn-debug.log*
 frontend/yarn-error.log*
 
 MtdrSpring/backend/run-backend.bat
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
