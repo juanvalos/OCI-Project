@@ -36,6 +36,33 @@ public class User {
     @Column(name = "permits", nullable = false)
     private int permits;
 
+    // TWO FA 
+    @Column(name = "TWO_FA_ENABLED")
+    private Integer twoFaEnabled;
+
+    @Column(name = "TWO_FA_SECRET")
+    private String twoFaSecret;
+
+    public Integer getTwoFaEnabled() {
+        return twoFaEnabled;
+    }
+
+    public void setTwoFaEnabled(Integer twoFaEnabled) {
+        this.twoFaEnabled = twoFaEnabled;
+    }
+
+    public String getTwoFaSecret() {
+        return twoFaSecret;
+    }
+
+    public void setTwoFaSecret(String twoFaSecret) {
+        this.twoFaSecret = twoFaSecret;
+
+    }
+    //end of TWO FA implementation
+
+
+
     public User() {
     }
 

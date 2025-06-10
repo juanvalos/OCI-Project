@@ -48,4 +48,9 @@ public class AuthService {
                              .map(User::getName) // Suponiendo que la entidad User tiene un campo "name"
                              .orElse("Usuario desconocido");
     }
+// This method updates the user information in the database for 2fa
+
+    public void updateUser(User user) {
+        userRepository.save(user);
+    }
 }

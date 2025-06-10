@@ -11,6 +11,8 @@ import SprintEffectiveness from "./Components/SprintEffectiveness";
 import TotalHours from "./Components/totalHours";
 import UserHoursPerSprint from './Components/UserHoursPerSprint';
 import UserCompletedTasks from './Components/UserCompletedTasks';
+import SettingUser from './components/SettingUser';
+
 
 import { UserProvider } from './Contexts/UserContext';
 import { SprintProvider } from './Contexts/SprintContext';
@@ -33,6 +35,8 @@ const App = () => {
                             <Route path="/totalHours" element={<TotalHours />} />
                             <Route path="/userHoursPerSprint" element={<UserHoursPerSprint />} />
                             <Route path="/userCompletedTasks" element={<UserCompletedTasks />} />
+                            <Route path="/settingsUser" element={<SettingUser />} />
+
                         </Routes>
                     </SprintProvider>
                 </UserProvider>
