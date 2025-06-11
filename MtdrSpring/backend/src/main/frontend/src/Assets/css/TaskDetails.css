@@ -1,0 +1,73 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 320px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.close-button, .status-button {
+    margin-top: 15px;
+    background: #C74634;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.close-button:hover, .status-button:hover {
+    background: #A2322D;
+}
+
+label {
+    font-weight: bold;
+    margin-top: 15px;
+    display: block;
+    color: #333;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 2px solid #C74634;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: white;
+    color: #312D2A;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    outline: none;
+}
+
+select:hover, select:focus {
+    border-color: #A2322D;
+    background-color: #f8f9fa;
+}
+
+option {
+    padding: 10px;
+    background-color: white;
+    color: #312D2A;
+}
+
+.modal-content p {
+    margin: 8px 0;
+    color: #2d3436;
+    font-size: 14px;
+}

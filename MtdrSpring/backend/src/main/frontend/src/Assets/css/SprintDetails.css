@@ -1,4 +1,4 @@
-/* General */
+/* Reset y cuerpo */
 html, body {
     margin: 0;
     padding: 0;
@@ -39,12 +39,15 @@ html, body {
 
 .header-buttons {
     display: flex;
-    align-items: center;
     gap: 12px;
+    align-items: center;    
+    height: 100%;
 }
 
 .header-buttons .button-wrapper {
-    transform: translateY(-4px);
+    display: flex;
+    align-items: center;   
+    height: 100%;
 }
 
 .header-buttons button {
@@ -57,23 +60,21 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
-    line-height: 1;
-    white-space: nowrap;
     border: none;
-    transition: all 0.3s ease-in-out;
     gap: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
 }
 
 .back-icon, .logout-icon {
     font-size: 16px;
-    min-width: 20px;
-    text-align: center;
 }
 
 /* Go Back */
 .back-button {
     background-color: #E1E1E1;
     color: #312D2A;
+    transform: translateY(-7.5px); 
 }
 
 .back-button:hover {
@@ -178,50 +179,7 @@ html, body {
     color: #333;
 }
 
-/* Footer image */
-.footer-image {
-    grid-area: footer-image;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-}
-
-.footer-image img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
-
-/* Footer */
-.item5 {
-    grid-area: footer;
-    background-color: #403937;
-    color: #fff;
-    text-align: center;
-    padding: 20px 40px;
-    font-size: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/*Graficos*/
-.stats-section {
-    flex: 3;
-    background-color: #f0f2f5;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    max-width: 80vh;
-    text-align: center;
-    height: 65vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
+/* Chart */
 .chart-section {
     flex: 1;
     background: #f0f2f5;
@@ -235,5 +193,31 @@ html, body {
     justify-content: center;
     align-items: center;
     gap: 15px;
-    height: 65vh; 
+    height: 65vh;
+}
+
+/* Footer image */
+.footer-image {
+    grid-area: footer-image;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-image img {
+    width: 100%;
+    height: auto;
+}
+
+/* Footer */
+.item5 {
+    grid-area: footer;
+    background-color: #403937;
+    color: #fff;
+    text-align: center;
+    padding: 20px 40px;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
