@@ -53,7 +53,7 @@ const CreateTask = ({ onClose }) => {
       dueDate: taskDetails.dueDate,
     };
 
-    console.log("Tarea a enviar:", newTask);
+    //console.log("Tarea a enviar:", newTask);
 
     try {
       const response = await fetch("/tasks", {
