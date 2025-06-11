@@ -2,6 +2,7 @@ package com.springboot.MyTodoList.util;
 
 public enum BotCommands {
 
+    AUTHENTICATION("/authentication"),
     START_COMMAND("/start"), 
     VIEW_SPRINTS("/viewsprints"), 
     VIEW_TASKS("/viewtasks"), // Mantener este comando

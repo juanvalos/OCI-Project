@@ -1,7 +1,10 @@
 package com.springboot.MyTodoList.util;
 
-public enum BotMessages {
+import java.net.Authenticator;
 
+//
+public enum BotMessages {
+    
     MAIN_MENU("Welcome! Choose an option:"),
     VIEW_SPRINTS_MESSAGE("Here are the sprints:"),
     VIEW_TASKS_MESSAGE("Tasks del sprint:"),
@@ -20,7 +23,8 @@ public enum BotMessages {
     NO_SPRINT_OR_USER_SELECTED("No valid sprint or user has been selected. Please select both before creating the task."),
     BOT_REGISTERED_STARTED("Bot registered and started successfully!"),
     TEAM_ANALYSIS("Selecciona un a sprint to analize it. Use the next format -> Sprint analysis: [Sprint's name]"),
-    SELECT_ANALYSIS_TYPE("Select a type of analysis:");
+    SELECT_ANALYSIS_TYPE("Select a type of analysis:"),
+    AUTHENTICATOR("Please authenticate yourself by typing your username and password in the next format -> Username: <username>, Password: <password>");
 
     private final String message;
 

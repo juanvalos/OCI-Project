@@ -37,6 +37,8 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
     private AuthService authService;
     private String botName;
 
+
+
     public ToDoItemBotController(String botToken, String botName, SprintService sprintService, TaskService taskService, AuthService authService) {
         super(botToken);
         logger.info("Bot Token: " + botToken);
@@ -48,42 +50,88 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
     }
 
     @Override
-    public void onUpdateReceived(Update update) {
-        if (update.hasMessage() && update.getMessage().hasText()) {
-            String messageTextFromTelegram = update.getMessage().getText();
-            long chatId = update.getMessage().getChatId();
+public void onUpdateReceived(Update update) {
+    // 0) Ignore non-text updates
+    if (!update.hasMessage() || !update.getMessage().hasText()) {
+        return;
+        }
 
-            if (messageTextFromTelegram.equals(BotCommands.START_COMMAND.getCommand())) {
-                showMainMenu(chatId);
-            } else if (messageTextFromTelegram.equals(BotLabels.VIEW_SPRINTS.getLabel())) {
-                handleViewSprints(chatId);
-            } else if (messageTextFromTelegram.equals(BotLabels.CREATE_SPRINT.getLabel())) {
-                BotHelper.sendMessageToTelegram(chatId, BotMessages.ENTER_SPRINT_DETAILS.getMessage(), this);
-            } else if (messageTextFromTelegram.equals(BotLabels.CREATE_TASK.getLabel())) {
-                handleCreateTask(chatId);
-            } else if (messageTextFromTelegram.startsWith("Sprint: ")) {
-                handleViewTasksBySprint(chatId, messageTextFromTelegram.replace("Sprint: ", ""));
-            } else if (messageTextFromTelegram.startsWith("New sprint: ")) {
-                handleCreateSprint(chatId, messageTextFromTelegram.replace("New sprint: ", ""));
-            } else if (messageTextFromTelegram.startsWith("Sprint name: ")) {
-                handleCreateTaskForSprint(chatId, messageTextFromTelegram.replace("Sprint name: ", ""));
-            } else if (messageTextFromTelegram.startsWith("Task: ")) {
-                handleNewTask(chatId, messageTextFromTelegram.replace("Task: ", ""));
-            } else if (messageTextFromTelegram.startsWith("User: ")) {
-                handleAssignUserToTask(chatId, messageTextFromTelegram.replace("User: ", ""));
-            } else if (messageTextFromTelegram.equals("Análisis de Equipo")) {
-                handleTeamAnalysis(chatId);
-            } else if (messageTextFromTelegram.startsWith("Sprint analysis: ")) {
-                handleSprintSelectionForAnalysis(chatId, messageTextFromTelegram.replace("Sprint analysis: ", ""));
-            } else if (messageTextFromTelegram.equalsIgnoreCase("Productivity") || 
-                       messageTextFromTelegram.equalsIgnoreCase("Effectiveness")) {
-                handleAnalysisTypeSelection(chatId, messageTextFromTelegram);
-            }else {
-                BotHelper.sendMessageToTelegram(chatId, BotMessages.INVALID_OPTION.getMessage(), this);
-            }
+        String text = update.getMessage().getText();
+        long chatId = update.getMessage().getChatId();
+
+        // 1) AUTH GATE
+        if (authService.getCurrentUserId(chatId).isEmpty()&& !text.equals(BotCommands.START_COMMAND.getCommand())&& !text.equals(BotCommands.AUTHENTICATION.getCommand())&& !text.startsWith("Username:")) {
+
+            BotHelper.sendMessageToTelegram(
+                chatId,"You must authenticate before using any other command.\n" +"Please type /authentication",
+                this
+            );
+            return;
+        }
+
+        if (text.equals(BotCommands.START_COMMAND.getCommand())) {
+            showMainMenu(chatId);
+
+        } else if (text.equals(BotCommands.AUTHENTICATION.getCommand())) {
+            BotHelper.sendMessageToTelegram(chatId,BotMessages.AUTHENTICATOR.getMessage(),
+            this
+            );
+
+        } else if (text.startsWith("Username:")) {
+            handleAuthentication(chatId, text);
+
+        } else if (text.equals(BotLabels.VIEW_SPRINTS.getLabel())) {
+            handleViewSprints(chatId);
+
+        } else if (text.equals(BotLabels.CREATE_SPRINT.getLabel())) {
+            BotHelper.sendMessageToTelegram(chatId,BotMessages.ENTER_SPRINT_DETAILS.getMessage(),
+                this
+            );
+
+        } else if (text.equals(BotLabels.CREATE_TASK.getLabel())) {
+            handleCreateTask(chatId);
+
+        } else if (text.startsWith("Sprint: ")) {
+            String sprintName = text.substring("Sprint: ".length());
+            handleViewTasksBySprint(chatId, sprintName);
+
+        } else if (text.startsWith("New sprint: ")) {
+            String sprintDetails = text.substring("New sprint: ".length());
+            handleCreateSprint(chatId, sprintDetails);
+
+        } else if (text.startsWith("Sprint name: ")) {
+            String sprintName = text.substring("Sprint name: ".length());
+            handleCreateTaskForSprint(chatId, sprintName);
+
+        } else if (text.startsWith("Task: ")) {
+            String taskDetails = text.substring("Task: ".length());
+            handleNewTask(chatId, taskDetails);
+
+        } else if (text.startsWith("User: ")) {
+            String userName = text.substring("User: ".length());
+            handleAssignUserToTask(chatId, userName);
+
+        } else if (text.equals("Análisis de Equipo")) {
+            handleTeamAnalysis(chatId);
+
+        } else if (text.startsWith("Sprint analysis: ")) {
+            String sprintName = text.substring("Sprint analysis: ".length());
+            handleSprintSelectionForAnalysis(chatId, sprintName);
+
+        } else if (text.equalsIgnoreCase("Productivity") ||
+                   text.equalsIgnoreCase("Effectiveness")) {
+            handleAnalysisTypeSelection(chatId, text);
+
+        } else {
+            BotHelper.sendMessageToTelegram(
+                chatId,
+                BotMessages.INVALID_OPTION.getMessage(),
+                this
+            );
         }
     }
-
+   
+    
     private void showMainMenu(long chatId) {
         SendMessage messageToTelegram = new SendMessage();
         messageToTelegram.setChatId(chatId);
@@ -307,5 +355,33 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
     @Override
     public String getBotUsername() {        
         return botName;
+    }
+
+    private void handleAuthentication(long chatId, String text) {
+
+        String[] parts = text.split(",");
+        User credentials = new User();
+        String username = parts[0].replace("Username:", "").trim();
+        String password = parts[1].replace("Password:", "").trim();
+        credentials.setUsername(username);
+        credentials.setPassword(password);
+        User authenticatedUser = authService.authenticate(credentials);
+        
+        if (authenticatedUser != null) {
+            authService.setCurrentUserId(chatId, authenticatedUser.getId());
+            BotHelper.sendMessageToTelegram(
+                chatId,
+                "Authentication successful! Welcome, " + username + ".",
+                this
+        );
+
+        showMainMenu(chatId);
+
+        } else {
+            BotHelper.sendMessageToTelegram(
+            chatId,"Invalid credentials. Please try again with /authentication",
+            this
+            );
+        }
     }
 }
