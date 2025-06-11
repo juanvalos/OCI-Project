@@ -9,6 +9,7 @@ import footerImage from '../Assets/fotos/footerLogin.png';
 import { BsClipboardCheck, BsClipboard2CheckFill } from "react-icons/bs";
 import { FiLogOut, FiArrowLeft } from "react-icons/fi";
 import TaskDetails from "./TaskDetails";
+import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const SprintDetails = () => {
   const { sprintId, setSprintId } = useContext(SprintContext);
@@ -21,23 +22,15 @@ const SprintDetails = () => {
   const navigate = useNavigate();
 
   const fetchSprintDetails = async () => {
-    try {
-      const response = await fetch(`/sprints/${sprintId}`);
-      const data = await response.json();
-      setSprint(data);
-    } catch (error) {
-      console.error("Error fetching sprint:", error);
-    }
+    const response = await fetch(`/sprints/${sprintId}`);
+    const data = await response.json();
+    setSprint(data);
   };
 
   const fetchTasks = async () => {
-    try {
-      const response = await fetch(`/tasksUserSprint?oracleUserId=${userId}&sprintId=${sprintId}`);
-      const data = await response.json();
-      setTasks(data);
-    } catch (error) {
-      console.error("Error fetching tasks:", error);
-    }
+    const response = await fetch(`/tasksUserSprint?oracleUserId=${userId}&sprintId=${sprintId}`);
+    const data = await response.json();
+    setTasks(data);
   };
 
   useEffect(() => {
@@ -74,6 +67,20 @@ const SprintDetails = () => {
     }
   };
 
+  // Datos para el gráfico (solo tareas del usuario)
+  const total = tasks.length;
+  const terminadas = tasks.filter(t => t.state === "Terminada").length;
+  const enProgreso = tasks.filter(t => t.state === "En progreso").length;
+  const sinEmpezar = total - terminadas - enProgreso;
+
+  const dataChart = [
+    { name: "Terminadas", value: terminadas },
+    { name: "En progreso", value: enProgreso },
+    { name: "Sin empezar", value: sinEmpezar },
+  ];
+
+  const COLORS = ["#0D4715", "#D98324", "#999"];
+
   return (
     <div className="grid-container">
       {/* Header */}
@@ -106,7 +113,7 @@ const SprintDetails = () => {
         )}
 
         <div className="tasks-section">
-          <h2 className="sprints-title">📝 Tasks</h2>
+          <h2 className="sprints-title">📝 My Tasks</h2>
           <div className="sprints-container">
             {tasks.length > 0 ? (
               tasks.map((task) => (
@@ -124,25 +131,37 @@ const SprintDetails = () => {
             )}
           </div>
         </div>
+
+        <div className="chart-section">
+          <h2 className="sprints-title">📊 My Progress</h2>
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+              <Pie data={dataChart} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80}>
+                {dataChart.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
+              <Tooltip />
+              <Legend />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
       </div>
 
-      {/* Footer image */}
       <div className="footer-image">
         <img src={footerImage} alt="Footer" />
       </div>
 
-      {/* Footer */}
       <div className="item5">
         <p>© 2025 Team 45. All rights reserved.</p>
       </div>
 
-      {/* Modal Task Details */}
       {showTaskModal && (
         <TaskDetails
           task={selectedTask}
           onClose={() => {
             setShowTaskModal(false);
-            fetchTasks(); 
+            fetchTasks();
           }}
         />
       )}

@@ -205,3 +205,35 @@ html, body {
     justify-content: center;
     align-items: center;
 }
+
+/*Graficos*/
+.stats-section {
+    flex: 3;
+    background-color: #f0f2f5;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    max-width: 80vh;
+    text-align: center;
+    height: 65vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.chart-section {
+    flex: 1;
+    background: #f0f2f5;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    max-width: 350px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    height: 65vh; 
+}
