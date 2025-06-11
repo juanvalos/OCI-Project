@@ -9,69 +9,119 @@ import {
   ResponsiveContainer,
   Legend,
 } from "recharts";
+import { useNavigate } from "react-router-dom";
+import { FiArrowLeft, FiLogOut } from "react-icons/fi";
+import oracleLogo from '../Assets/fotos/Imagen1.png';
+import footerImage from '../Assets/fotos/footerLogin.png';
 import "../Assets/SprintProductivity.css";
+import "../Assets/css/SprintsAdmin.css";
 
 const UserCompletedTasks = () => {
   const [chartData, setChartData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [developers, setDevelopers] = useState([]);
+  const navigate = useNavigate();
 
-  const fetchCompletedTasks = async () => {
-    try {
-      const response = await fetch("/sprints/completed-tasks");
-      const data = await response.json();
-
-      // Extraer developers únicos (ignorando el campo "name")
-      const allDevs = new Set();
-      data.forEach((entry) => {
-        Object.keys(entry).forEach((key) => {
-          if (key !== "name") {
-            allDevs.add(key);
-          }
-        });
-      });
-
-      setDevelopers(Array.from(allDevs));
-      setChartData(data);
-    } catch (error) {
-      console.error("Error obteniendo tareas completadas:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const PALETTE = [
+    "#C74634", 
+    "#D98324", 
+    "#FFB400", 
+    "#0D4715", 
+    "#009688", 
+    "#3B5998",
+    "#8A2BE2", 
+    "#E91E63", 
+    "#312D2A", 
+    "#999999" 
+  ];
 
   useEffect(() => {
+    const fetchCompletedTasks = async () => {
+      try {
+        const response = await fetch("/sprints/completed-tasks");
+        const data = await response.json();
+
+        const allDevs = new Set();
+        data.forEach(entry => {
+          Object.keys(entry).forEach(key => {
+            if (key !== "name") allDevs.add(key);
+          });
+        });
+
+        setDevelopers(Array.from(allDevs));
+        setChartData(data);
+      } catch (error) {
+        console.error("Error obteniendo tareas completadas:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchCompletedTasks();
   }, []);
 
+  const handleGoBack = () => navigate(-1);
+  const handleLogout = () => navigate("/");
+
   return (
-    <div className="dashboard-container">
-      <div className="dashboard-header">
-        <h1 className="dashboard-title">✅ Tareas completadas por developer en cada Sprint</h1>
+    <div className="grid-container">
+      {/* Header */}
+      <div className="item1">
+        <img src={oracleLogo} alt="Oracle Logo" className="logo" />
+        <div className="header-buttons">
+          <button className="back-button" onClick={handleGoBack}>
+            <FiArrowLeft className="back-icon" /> Go Back
+          </button>
+          <button className="logout-button" onClick={handleLogout}>
+            <FiLogOut className="logout-icon" /> Log out
+          </button>
+        </div>
       </div>
 
-      <div className="dashboard-content">
-        {loading ? (
-          <p>Cargando...</p>
-        ) : (
-          <ResponsiveContainer width="100%" height={450}>
-            <BarChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis allowDecimals={false} />
-              <Tooltip />
-              <Legend />
-              {developers.map((dev, index) => (
-                <Bar
-                  key={dev}
-                  dataKey={dev}
-                  fill={`hsl(${(index * 60) % 360}, 70%, 60%)`}
-                  name={dev}
-                />
-              ))}
-            </BarChart>
-          </ResponsiveContainer>
-        )}
+      {/* Main */}
+      <div className="item3">
+        <div className="dashboard-container">
+          <div className="dashboard-header">
+            <h1 className="dashboard-title">
+              Tareas completadas por developer en cada Sprint
+            </h1>
+          </div>
+
+          <div className="dashboard-content">
+            {loading ? (
+              <p>Cargando...</p>
+            ) : (
+              <ResponsiveContainer width="100%" height={450}>
+                <BarChart
+                  data={chartData}
+                  margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis allowDecimals={false} />
+                  <Tooltip />
+                  <Legend />
+                  {developers.map((dev, i) => (
+                    <Bar
+                      key={dev}
+                      dataKey={dev}
+                      name={dev}
+                      fill={PALETTE[i % PALETTE.length]}
+                    />
+                  ))}
+                </BarChart>
+              </ResponsiveContainer>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div className="footer-image">
+        <img src={footerImage} alt="Footer" />
+      </div>
+      <div className="item5">
+        <p>© 2025 Team 45. All rights reserved.</p>
       </div>
     </div>
   );

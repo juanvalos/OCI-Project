@@ -71,7 +71,7 @@ const SprintEffectiveness = () => {
 
         {/* Tarjetas de efectividad */}
         <div className="sprints-section">
-          <h2 className="sprints-title">📈 Efectividad del Sprint</h2>
+          <h2 className="sprints-title">Efectividad del Sprint</h2>
           <div className="sprints-container">
             {effectiveness ? (
               Object.entries(effectiveness).map(([user, val]) => (
