@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { TaskContext } from "../Contexts/TaskContext";
-import "../Assets/ManageTask.css";
+import "../Assets/css/ManageTask.css";
 
 const ManageTask = ({ onClose }) => {
   const { taskId } = useContext(TaskContext);

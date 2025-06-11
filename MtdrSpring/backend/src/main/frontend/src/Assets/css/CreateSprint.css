@@ -1,11 +1,9 @@
-/* Contenedor para alinear los botones en horizontal */
 .buttons-container {
     display: flex;
     justify-content: space-between;
     margin-top: 15px;
 }
 
-/* Estilo unificado para ambos botones */
 .create-button, .close-button {
     background: #C74634;
     color: white;
@@ -14,7 +12,7 @@
     border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
-    width: 48%; /* Para que ambos botones ocupen el mismo espacio */
+    width: 48%; 
     text-align: center;
 }
 
@@ -22,12 +20,12 @@
     background-color: #A2322D;
 }
 
-/* Ajuste de los inputs */
+
 input {
     width: 100%;
     padding: 10px;
     margin-top: 10px;
     border-radius: 5px;
-    border: 2px solid #ccc; /* Color gris */
-    outline: none; /* Evita cambio de color al hacer clic */
+    border: 2px solid #ccc; 
+    outline: none; 
 }

@@ -14,24 +14,27 @@
     background: white;
     padding: 20px;
     border-radius: 8px;
-    width: 320px;
+    width: 400px;                
+    max-width: 90%;
     text-align: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.close-button, .status-button {
-    margin-top: 15px;
-    background: #C74634;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease-in-out;
+.modal-content h2 {
+    margin-bottom: 15px;
 }
 
-.close-button:hover, .status-button:hover {
-    background: #A2322D;
+.modal-content p {
+    margin: 8px 0;
+    color: #2d3436;
+    font-size: 14px;
+}
+
+.hours-input {
+    width: 80px;
+    margin-left: 8px;
+    padding: 6px 10px;
+    font-size: 14px;
 }
 
 label {
@@ -66,8 +69,33 @@ option {
     color: #312D2A;
 }
 
-.modal-content p {
-    margin: 8px 0;
-    color: #2d3436;
-    font-size: 14px;
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.modal-buttons .close-button {
+    flex: 1;                    
+    height: 48px;               
+    background: #C74634;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.modal-buttons .close-button:first-child {
+    background: #312D2A;
+}
+
+.modal-buttons .close-button:hover {
+    background: #A63A2A;
+}
+
+.modal-buttons .close-button:first-child:hover {
+    background: #201B1A;
 }

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { SprintContext } from "../Contexts/SprintContext";
-import "../Assets/CreateTask.css";
+import "../Assets/css/CreateTask.css";
 
 const CreateTask = ({ onClose }) => {
   const { sprintId } = useContext(SprintContext);
