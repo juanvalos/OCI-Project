@@ -46,7 +46,7 @@ async function sprintsData(page) {
 }
 
 
-test.describe("User checks sprints performance graphics of sprints", () => {
+test.describe('@sprint-visuals Sprint Performance Visual Tests', () => {
   test.beforeEach(async ({ page }) => {
     await doLogin(page);
     await sprintsData(page);
@@ -78,7 +78,7 @@ test.describe("User checks sprints performance graphics of sprints", () => {
       page.getByRole("heading", { name: "Sprint Effectiveness" })
     ).toBeVisible();
 
-    // Check if the dropdown for selecting a sprint is visible
+    
     const dropdown = page.getByRole("combobox");
     await expect(dropdown).toBeVisible();
     await dropdown.selectOption("Sprint 1");
@@ -88,6 +88,10 @@ test.describe("User checks sprints performance graphics of sprints", () => {
     await expect(await page.getByText("85.50%")).toBeVisible();
     await expect(await page.getByText("User B")).toBeVisible();
     await expect(await page.getByText("90.00%")).toBeVisible();
+
+    await expect(await page).toHaveScreenshot('sprint-effectiveness.png');
+    
+
 
   });
 
@@ -126,6 +130,40 @@ test.describe("User checks sprints performance graphics of sprints", () => {
     await expect(await page.getByText("75.50%")).toBeVisible();
     await expect(await page.getByText("User C")).toBeVisible();
     await expect(await page.getByText("65.20%")).toBeVisible();
+  });
+
+  test("renders bar chart with total sprint hours", async ({ page }) => {
+    await page.route("**/sprints/totalHours", async (route) => {
+      const mockTotalHours = {
+        "Sprint 1": 120,
+        "Sprint 2": 150,
+        "Sprint 3": 95,
+      };
+
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify(mockTotalHours),
+      });
+    });
+    await expect(
+      page.getByRole("heading", { name: "Oracle Manager Dashboard" })
+    ).toBeVisible();
+
+    const button = page.getByRole("button", { name: "Hrs trabajadas por sprint" });
+    await button.click();
+    
+    await expect(page.getByRole("heading", {
+      name: "Horas totales trabajadas por Sprint"
+    })).toBeVisible();
+
+    
+    await expect(await page.getByText("Sprint 1")).toBeVisible();
+    await expect(await page.getByText("Sprint 2")).toBeVisible();
+    await expect(page.getByText("Sprint 3")).toBeVisible();
+
+    
+    await expect(page).toHaveScreenshot("total-hours-chart.png");
   });
 
 

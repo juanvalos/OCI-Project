@@ -13,7 +13,9 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "test:frontend": "jest --config jest.config.cjs"
+    "test:frontend": "jest --config jest.config.cjs",
+    "test:e2e": "playwright test",
+    "test:e2e:update": "playwright test --update-snapshots"
   },
   "dependencies": {
     "@emotion/react": "^11.9.0",
@@ -28,6 +30,7 @@
     "react-moment": "^1.1.2",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
+    "recharts": "^2.15.3",
     "typescript": "^4.6.4"
   },
   "devDependencies": {
