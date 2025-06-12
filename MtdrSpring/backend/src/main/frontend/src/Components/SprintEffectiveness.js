@@ -55,24 +55,34 @@ const SprintEffectiveness = () => {
       {/* Main */}
       <div className="item3 dashboard-content">
         {/* Selección de Sprint */}
-        <div className="profile-container">
-          <h2>Seleccionar Sprint</h2>
-          <select
-            value={sprintId || ""}
-            onChange={handleSprintChange}
-            className="sprint-dropdown"
-          >
-            <option value="" disabled>Selecciona un sprint</option>
-            {sprints.map(s => (
-              <option key={s.id} value={s.id}>{s.name}</option>
-            ))}
-          </select>
+        <div className="profile-section-efectiveness">
+          <div className="profile-container-efectiveness">
+            <h2>Seleccionar Sprint</h2>
+            <select
+              value={sprintId || ""}
+              onChange={handleSprintChange}
+              className="sprint-dropdown"
+            >
+              <option value="" disabled>Selecciona un sprint</option>
+              {sprints.map(s => (
+                <option key={s.id} value={s.id}>{s.name}</option>
+              ))}
+            </select>
+            {/* Imagen de efectividad */}
+            
+          </div>
+          <img
+              src={require('../Assets/fotos/efectividad.png')}
+              alt="Efectividad"
+              className="efectividad-img"
+              style={{ marginTop: '20px', width: '100%' }}
+            />
         </div>
 
         {/* Tarjetas de efectividad */}
         <div className="sprints-section">
           <h2 className="sprints-title">Efectividad del Sprint</h2>
-          <div className="sprints-container">
+          <div className="sprints-container2">
             {effectiveness ? (
               Object.entries(effectiveness).map(([user, val]) => (
                 <div className="user-eff-card" key={user}>
@@ -81,7 +91,7 @@ const SprintEffectiveness = () => {
                 </div>
               ))
             ) : (
-              <p>No hay datos disponibles para este sprint.</p>
+              <p>...</p>
             )}
           </div>
         </div>

@@ -55,27 +55,33 @@ const SprintProductivity = () => {
 
       {/* Main */}
       <div className="item3">
-        <div className="profile-container">
-          <h2>Seleccionar Sprint</h2>
-          <select
-            value={sprintId || ""}
-            onChange={handleSprintChange}
-            className="sprint-dropdown"
-          >
-            <option value="" disabled>
-              Selecciona un sprint
-            </option>
-            {sprints.map((s) => (
-              <option key={s.id} value={s.id}>
-                {s.name}
-              </option>
-            ))}
-          </select>
+        <div className="profile-section-efectiveness">
+          <div className="profile-container-efectiveness">
+            <h2>Seleccionar Sprint</h2>
+            <select
+              value={sprintId || ""}
+              onChange={handleSprintChange}
+              className="sprint-dropdown"
+            >
+              <option value="" disabled>Selecciona un sprint</option>
+              {sprints.map(s => (
+                <option key={s.id} value={s.id}>{s.name}</option>
+              ))}
+            </select>
+            {/* Imagen de efectividad */}
+            
+          </div>
+          <img
+              src={require('../Assets/fotos/productividad.png')}
+              alt="Efectividad"
+              className="efectividad-img"
+              style={{ marginTop: '20px', width: '100%' }}
+            />
         </div>
 
         <div className="sprints-section">
           <h2 className="sprints-title">Productividad del Sprint</h2>
-          <div className="sprints-container">
+          <div className="sprints-container2">
             {productivity ? (
               Object.entries(productivity).map(([user, value]) => (
                 <div className="user-prod-card" key={user}>
@@ -84,7 +90,7 @@ const SprintProductivity = () => {
                 </div>
               ))
             ) : (
-              <p>No hay datos disponibles para este sprint.</p>
+              <p>...</p>
             )}
           </div>
         </div>

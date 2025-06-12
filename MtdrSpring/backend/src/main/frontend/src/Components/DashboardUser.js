@@ -70,13 +70,17 @@ const DashboardUser = () => {
       <div className="item3">
         {/* Perfil */}
         {user && (
-          <div className="profile-container">
-            <FaUserCircle className="profile-icon" />
-            <h2>Profile</h2>
-            <p><strong>Name:</strong> {user.name}</p>
-            <p><strong>Email:</strong> {user.mail}</p>
-            <p><strong>Role:</strong> {user.role}</p>
-            <p><strong>Modality:</strong> {user.modality}</p>
+          <div className="left-section">
+            <div className="profile-section">
+              <div className="profile-container">
+                <FaUserCircle className="profile-icon" />
+                <h2>Profile</h2>
+                <p><strong>Name:</strong> {user.name}</p>
+                <p><strong>Email:</strong> {user.mail}</p>
+                <p><strong>Role:</strong> {user.role}</p>
+                <p><strong>Modality:</strong> {user.modality}</p>
+              </div>
+            </div>
           </div>
         )}
 

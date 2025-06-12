@@ -18,6 +18,7 @@ html, body {
     width: 100vw;
     height: 100vh;
     background-color: #f0f2f5;
+    align-items: center;
 }
 
 /* Header */
@@ -68,9 +69,19 @@ html, body {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: flex-start;
     padding: 20px;
     gap: 30px;
+    align-items: stretch;
+}
+
+.left-section {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  /* Centra verticalmente */
+    align-items: center;
+    height: 100%;
+    align-self: center;
 }
 
 /* Perfil Admin */
@@ -87,6 +98,7 @@ html, body {
     justify-content: center;
     align-items: center;
     gap: 12px;
+    align-self: center;
 }
 
 /* Sprints Section */
