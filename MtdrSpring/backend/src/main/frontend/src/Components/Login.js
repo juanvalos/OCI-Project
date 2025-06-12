@@ -71,7 +71,7 @@ const Login = () => {
 
             {/* footer */}
             <div className="item5">
-                <p>© 2025 Team 45. All rights reserved.</p>
+                <p>©2025 Team 45. All rights reserved.</p>
             </div>
         </div>
     );
