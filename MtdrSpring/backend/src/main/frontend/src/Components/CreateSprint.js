@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../Assets/CreateSprint.css";
+import "../Assets/css/CreateSprint.css";
 
 const CreateSprint = ({ onClose, onCreate }) => {
   const [newSprint, setNewSprint] = useState({
