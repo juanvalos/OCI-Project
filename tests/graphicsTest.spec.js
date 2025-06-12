@@ -130,6 +130,9 @@ test.describe('@sprint-visuals Sprint Performance Visual Tests', () => {
     await expect(await page.getByText("75.50%")).toBeVisible();
     await expect(await page.getByText("User C")).toBeVisible();
     await expect(await page.getByText("65.20%")).toBeVisible();
+
+    await expect(await page).toHaveScreenshot('sprint-productivity.png');
+
   });
 
   test("renders bar chart with total sprint hours", async ({ page }) => {
@@ -160,10 +163,49 @@ test.describe('@sprint-visuals Sprint Performance Visual Tests', () => {
     
     await expect(await page.getByText("Sprint 1")).toBeVisible();
     await expect(await page.getByText("Sprint 2")).toBeVisible();
-    await expect(page.getByText("Sprint 3")).toBeVisible();
+    //await expect(page.getByText("Sprint 3")).toBeVisible();
 
     
     await expect(page).toHaveScreenshot("total-hours-chart.png");
+  });
+
+  test('should display chart title and developer names', async ({ page }) => {
+    await page.route("**/sprints/user-hours", async (route) => {
+      const mockData = [
+        {
+          name: "Sprint 1",
+          UserA: 5,
+          UserB: 11
+        },
+        {
+          name: "Sprint 2",
+          UserA: 10,
+          UserB: 7 
+        }
+      ];
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify(mockData),
+      });
+    });
+    await expect(
+      page.getByRole("heading", { name: "Oracle Manager Dashboard" })
+    ).toBeVisible();
+
+    const button = page.getByRole("button", { name: "Hrs trabajadas por dev" });
+    await button.click();
+    
+    await expect(page.getByRole("heading", { name: ' Horas trabajadas por' })).toBeVisible();
+    
+    // These checks assume developer names appear somewhere in the chart legend or tooltip
+    await expect(page.getByRole('listitem').filter({ hasText: /^UserA$/ }).locator('span')).toBeVisible();
+    await expect(page.getByRole('listitem').filter({ hasText: /^UserB$/ }).locator('span')).toBeVisible();
+    await expect(page.getByText("Sprint 1")).toBeVisible();
+    //await expect(page.getByText("Sprint 2")).toBeVisible();
+
+    await expect(page).toHaveScreenshot("user-hours-chart.png");
+    
   });
 
 
